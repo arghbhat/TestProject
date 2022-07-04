@@ -1,0 +1,4307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.15">
+<title>Confluent Developer Skills for Building Apache Kafka®: Exercise Book</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:50%;border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .ch, pre.rouge .cd, pre.rouge .cpf {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sa {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s, pre.rouge .dl {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf, pre.rouge .fm {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv, pre.rouge .vm {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
+</head>
+<body class="book toc2 toc-left">
+<div id="header">
+<h1>Confluent Developer Skills for Building Apache Kafka®: Exercise Book</h1>
+<div class="details">
+<span id="revnumber">version 7.0.0-v1.0.1</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_copyright_trademarks">Copyright &amp; Trademarks</a></li>
+<li><a href="#_lab_01_fundamentals_of_apache_kafka">Lab 01 Fundamentals of Apache Kafka</a>
+<ul class="sectlevel2">
+<li><a href="#_a_introduction">a. Introduction</a></li>
+<li><a href="#_b_using_kafkas_command_line_tools">b. Using Kafka’s Command-Line Tools</a></li>
+</ul>
+</li>
+<li><a href="#_lab_02_producing_messages_to_kafka">Lab 02 Producing Messages to Kafka</a>
+<ul class="sectlevel2">
+<li><a href="#_a_kafka_producer_java_c_python">a. Kafka Producer (Java, C#, Python)</a></li>
+</ul>
+</li>
+<li><a href="#_lab_04_consuming_messages_from_kafka">Lab 04 Consuming Messages from Kafka</a>
+<ul class="sectlevel2">
+<li><a href="#_a_kafka_consumer_java_c_python">a. Kafka Consumer (Java, C#, Python)</a></li>
+</ul>
+</li>
+<li><a href="#_lab_07_schema_management_in_apache_kafka">Lab 07 Schema Management in Apache Kafka</a>
+<ul class="sectlevel2">
+<li><a href="#_a_schema_registry_avro_producer_and_consumer_java_c_python">a. Schema Registry, Avro Producer and Consumer (Java, C#, Python)</a></li>
+</ul>
+</li>
+<li><a href="#_lab_08_stream_processing_with_kafka_streams">Lab 08 Stream Processing with Kafka Streams</a>
+<ul class="sectlevel2">
+<li><a href="#_a_kafka_streams_java">a. Kafka Streams (Java)</a></li>
+</ul>
+</li>
+<li><a href="#_lab_09_event_streaming_apps_with_ksqldb">Lab 09 Event Streaming Apps with ksqlDB</a>
+<ul class="sectlevel2">
+<li><a href="#_a_ksqldb_join_a_stream_and_a_table">a. ksqlDB - Join a Stream and a Table</a></li>
+</ul>
+</li>
+<li><a href="#_lab_11_data_pipelines_with_kafka_connect">Lab 11 Data Pipelines with Kafka Connect</a>
+<ul class="sectlevel2">
+<li><a href="#_a_kafka_connect_database_to_kafka">a. Kafka Connect - Database to Kafka</a></li>
+</ul>
+</li>
+<li><a href="#_lab_12_challenges_with_offsets">Lab 12 Challenges with Offsets</a>
+<ul class="sectlevel2">
+<li><a href="#_a_kafka_consumer_offsetsfortimes_java_c_python">a. Kafka Consumer - offsetsForTimes (Java, C#, Python)</a></li>
+</ul>
+</li>
+<li><a href="#_lab_13_partitioning_considerations">Lab 13 Partitioning Considerations</a>
+<ul class="sectlevel2">
+<li><a href="#_a_increasing_the_topic_partitions">a. Increasing the Topic Partitions</a></li>
+</ul>
+</li>
+<li><a href="#_running_all_labs_with_docker">Appendix A: Running All Labs with Docker</a>
+<ul class="sectlevel2">
+<li><a href="#docker-local">Running Labs in Docker for Desktop</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_copyright_trademarks">Copyright &amp; Trademarks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p> <br>
+ <br>
+ <br>
+ <br></p>
+</div>
+<div class="paragraph text-center">
+<p><span class="big">Copyright © Confluent, Inc. 2014-2022. <a href="https://www.confluent.io/confluent-privacy-statement/">Privacy Policy</a> | <a href="https://www.confluent.io/terms-of-use/">Terms &amp; Conditions</a>.<br>
+Apache, Apache Kafka, Kafka and the Kafka logo are trademarks of the<br>
+<a href="http://www.apache.org/">Apache Software Foundation</a></span></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_01_fundamentals_of_apache_kafka">Lab 01 Fundamentals of Apache Kafka</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_introduction">a. Introduction</h3>
+<div class="paragraph">
+<p>This document provides Hands-On Exercises for the course <strong>Confluent Developer Skills for Building Apache Kafka</strong>. You will use a setup that includes a virtual machine (VM) configured as a Docker host to demonstrate the distributed nature of Apache Kafka.</p>
+</div>
+<div class="paragraph">
+<p>The main Kafka cluster includes the following components, each running in a container:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/fundamentals/kafka-cluster.png" alt="kafka cluster">
+</div>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<caption class="title">Table 1. Components of the Confluent Platform</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 80%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Alias</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">zookeeper</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ZooKeeper</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kafka</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kafka Broker</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">schema-registry</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Schema Registry</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">connect</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kafka Connect</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ksqldb-server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ksqlDB Server</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">control-center</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Confluent Control Center</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">secondary location for tools run against the cluster</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>As you progress through the exercises you will selectively turn on parts of your cluster as they are needed.</p>
+</div>
+<div class="paragraph">
+<p>You will use Confluent Control Center to monitor the main Kafka cluster. To achieve this, we are also running the Control Center service which is backed by the same Kafka cluster.</p>
+</div>
+<div class="paragraph">
+<p>In this course we are using Confluent Platform version 7.0.0 which includes Kafka 3.0.0.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+In production, Control Center should be deployed with its own dedicated Kafka cluster, separate from the cluster with production traffic. Using a dedicated metrics cluster is more resilient because it continues to provide system health monitoring even if the production traffic cluster experiences issues.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_alternative_lab_environments">Alternative Lab Environments</h4>
+<div class="paragraph">
+<p>As an alternative you can also download the VM to your laptop and run it in VirtualBox. Make sure you have the newest version of VirtualBox installed. Download the VM from this link:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://s3.amazonaws.com/confluent-training-images-us-east-1/training-ubuntu-20-04-jan2022.ova" target="_blank" rel="noopener">https://s3.amazonaws.com/confluent-training-images-us-east-1/training-ubuntu-20-04-jan2022.ova</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you have installed Docker for Desktop on your Mac or Windows 10 Pro machine then you can run the labs there. But please note that your trainer might not be able to troubleshoot any potential problems if you are running the labs locally. If you choose to do this, follow the instructions at &#8594; <a href="#docker-local">Running Labs in Docker for Desktop</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_command_line_examples">Command Line Examples</h4>
+<div class="paragraph">
+<p>Most exercises contain commands that must be run from the command line. These commands will look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>pwd</strong>
+/home/training</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Commands you should type are shown in <strong>bold</strong>; non-bold text is an example of the output produced as a result of the command.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="preparing-lab">Preparing the Labs</h4>
+<div class="paragraph">
+<p>Welcome to your lab environment! You are connected as user <strong>training</strong>, password <strong>training</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you haven&#8217;t already done so, you should open the <strong>Exercise Guide</strong> that is located on the lab virtual machine. To do so, open the <strong>Confluent Training Exercises</strong> folder that is located on the lab virtual machine desktop. Then double-click the shortcut that is in the folder to open the <strong>Exercise Guide</strong>.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/fundamentals/local-exercise-guide.png" alt="local exercise guide">
+</div>
+</div>
+<div class="paragraph">
+<p>Copy and paste works best if you copy from the Exercise Guide on your lab virtual machine.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Standard Ubuntu keyboard shortcuts will work: <code>Ctrl+C</code> &#8594; Copy, <code>Ctrl+V</code> &#8594; Paste</p>
+</li>
+<li>
+<p>In a Terminal window: <code>Ctrl+Shift+C</code> &#8594; Copy, <code>Ctrl+Shift+V</code> &#8594; Paste.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you find these keyboard shortcuts are not working you can use the right-click context menu for copy and paste.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a terminal window</p>
+</li>
+<li>
+<p>Clone the source code repository to the folder <code>confluent-dev</code> in your <strong>home</strong> directory:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~</strong>
+$ <strong>git clone --depth 1 --branch 7.0.0-v1.0.1 \
+    https://github.com/confluentinc/training-developer-src.git \
+    confluent-dev</strong></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+If you chose to select another folder for the labs then note that many of our samples assume that the lab folder is <code>~/confluent-dev</code>. You will have to adjust all those command to fit your specific environment.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Navigate to the <code>confluent-dev</code> folder:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Start the Kafka cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see something similar to this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Creating network "confluent-dev_default" with the default driver
+Creating control-center ... done
+Creating kafka          ... done
+Creating zookeeper      ... done</pre>
+</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/fundamentals/containers.png" alt="containers" width="80%">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In the first steps of each exercise, you launch the containers needed for the exercise with <code>docker-compose up</code>.</p>
+</div>
+<div class="paragraph">
+<p>If at any time you want to get your environment back to a clean state use <code>docker-compose down</code> to end all of your containers. Then return to your last <code>docker-compose up</code> to get back to the beginning of an exercise.</p>
+</div>
+<div class="paragraph">
+<p>Exercises do not need to be completed in order.  You can start from the beginning of any exercise at any time.</p>
+</div>
+<div class="paragraph">
+<p>If you want to completely clear out your docker environment use the script on the VM at <code>~/docker-nuke.sh</code>. The nuke script will forcefully end all of your running docker containers.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Monitor the cluster with:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose ps</strong>
+
+     Name                 Command            State                     Ports
+-----------------------------------------------------------------------------------------------
+control-center   /etc/confluent/docker/run   Up      0.0.0.0:9021-&gt;9021/tcp
+kafka            /etc/confluent/docker/run   Up      0.0.0.0:9092-&gt;9092/tcp
+zookeeper        /etc/confluent/docker/run   Up      0.0.0.0:2181-&gt;2181/tcp, 2888/tcp, 3888/tcp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All services should have <code>State</code> equal to <code>Up</code>.</p>
+</div>
+</li>
+<li>
+<p>You can also observe the stats of Docker on your VM:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker stats</strong>
+
+CONTAINER ID        NAME                CPU %         MEM USAGE / LIMIT    MEM %    ...
+e174ec2aaa51        zookeeper           0.00%         86.88MiB / 7.787GiB  1.09%
+2bfac54019a2        kafka               0.01%         450.9MiB / 7.787GiB  5.65%
+14c813cf0cf1        control-center      0.01%         376.7MiB / 7.787GiB  4.72%</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Press <code>Ctrl+C</code> to exit the Docker statistics.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_testing_the_installation">Testing the Installation</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the <code>zookeeper-shell</code> command to verify that all Brokers have registered with ZooKeeper. You should see a single Broker listed as <code>[101]</code> in the last line of the output.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>zookeeper-shell zookeeper:2181 ls /brokers/ids</strong>
+Connecting to zookeeper:2181
+
+WATCHER::
+
+WatchedEvent state:SyncConnected type:None path:null
+[101]</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_optional_analyzing_the_docker_compose_file"><strong>OPTIONAL:</strong> Analyzing the Docker Compose File</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the file <code>docker-compose.yml</code> in your editor and:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>locate the various services that are listed in the table earlier in this section</p>
+</li>
+<li>
+<p>note that the container name (e.g. <code>zookeeper</code> or <code>kafka</code>) are used to resolve a particular service</p>
+</li>
+<li>
+<p>note how the broker (kafka)</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>gets a unique ID assigned via environment variable <code>KAFKA_BROKER_ID</code></p>
+</li>
+<li>
+<p>defines where to find the ZooKeeper instance</p>
+<div class="listingblock">
+<div class="content">
+<pre>KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181</pre>
+</div>
+</div>
+</li>
+<li>
+<p>sets the replication factor for the offsets topic to 1:</p>
+<div class="listingblock">
+<div class="content">
+<pre>KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1</pre>
+</div>
+</div>
+</li>
+<li>
+<p>configures the broker to send metrics to Confluent Control Center:</p>
+<div class="listingblock">
+<div class="content">
+<pre>KAFKA_METRIC_REPORTERS: "io.confluent.metrics.reporter.ConfluentMetricsReporter"
+CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: "kafka:9092"</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>note how various services use the environment variable <code>&#8230;&#8203;_BOOTSTRAP_SERVERS</code> to define the list of Kafka brokers that serve as bootstrap servers (in our case it&#8217;s only one instance):</p>
+<div class="listingblock">
+<div class="content">
+<pre>..._BOOTSTRAP_SERVERS: kafka:9092</pre>
+</div>
+</div>
+</li>
+<li>
+<p>note how e.g. the <code>connect</code> service and the <code>ksqldb-server</code> service define producer and consumer interceptors that produce data which can be monitored in Confluent Control Center:</p>
+<div class="listingblock">
+<div class="content">
+<pre>io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_confluent_control_center">Using Confluent Control Center</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>On your host machine, open a new browser tab in Google Chrome.</p>
+</li>
+<li>
+<p>Navigate to Control Center at the URL <a href="http://localhost:9021" target="_blank" rel="noopener">http://localhost:9021</a>:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/fundamentals/c3-clusters.png" alt="c3 clusters">
+</div>
+</div>
+</li>
+<li>
+<p>Select the cluster <strong>CO</strong>  and you will see this:</p>
+<div class="imageblock">
+<div class="content">
+<img src="./images/fundamentals/c3-broker-overview.png" alt="c3 broker overview">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We have a single broker in our cluster. Also note the other important metrics of our Kafka cluster on this view.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Optional: Explore the other tabs of Confluent Control Center, such as <strong>Topics</strong> or <strong>Cluster Settings</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_b_using_kafkas_command_line_tools">b. Using Kafka’s Command-Line Tools</h3>
+<div class="paragraph">
+<p>In this Hands-On Exercise you will start to become familiar with some of Kafka’s command-line tools. Specifically you will:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Use a tool to <strong>create</strong> a topic</p>
+</li>
+<li>
+<p>Use a console program to <strong>produce</strong> a message</p>
+</li>
+<li>
+<p>Use a console program to <strong>consume</strong> a message</p>
+</li>
+<li>
+<p>Use a tool to explore data stored in ZooKeeper</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites">Prerequisites</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the <code>confluent-dev</code> folder:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the Kafka cluster, including Confluent Control Center:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If your containers are running from the previous exercise this command will simply tell you each container is up-to-date.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_console_producing_and_consuming">Console Producing and Consuming</h4>
+<div class="paragraph">
+<p>Kafka has built-in command line utilities to produce messages to a Topic and read messages from a Topic. These are extremely useful to verify that Kafka is working correctly, and for testing and debugging.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Before we can start writing data to a topic in Kafka, we need to first create that topic using a tool called <code>kafka-topics</code>. From within the terminal window run the command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-topics</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will bring up a list of parameters that the <code>kafka-topics</code> program can receive. Take a moment to look through the options.</p>
+</div>
+</li>
+<li>
+<p>Now execute the following command to create the topic <code>testing</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-topics --bootstrap-server kafka:9092 \
+    --create \
+    --partitions 1 \
+    --replication-factor 1 \
+    --topic testing</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We create the topic with a single partition and <code>replication-factor</code> of one.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We could have configured Kafka to allow <strong>auto-creation</strong> of topics. In this case we would not have had to do the above step and the topic would automatically be created when the first record is written to it. But this behavior is <strong>strongly discouraged</strong> in production. Always create your topics explicitly!
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Now let&#8217;s move on to start writing data into the topic just created. From within the terminal window run the command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-console-producer</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will bring up a list of parameters that the <code>kafka-console-producer</code> program can receive. Take a moment to look through the options. We will discuss many of their meanings later in the course.</p>
+</div>
+</li>
+<li>
+<p>Run <code>kafka-console-producer</code> again with the required arguments:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-console-producer --bootstrap-server kafka:9092 --topic testing</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The tool prompts you with a <code>&gt;</code>.</p>
+</div>
+</li>
+<li>
+<p>At this prompt type:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&gt; <strong>some data</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And click <strong>Enter</strong>.</p>
+</div>
+</li>
+<li>
+<p>Now type:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&gt; <strong>more data</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And click <strong>Enter</strong>.</p>
+</div>
+</li>
+<li>
+<p>Type:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&gt; <strong>final data</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And click <strong>Enter</strong>.</p>
+</div>
+</li>
+<li>
+<p>Now we will use a Consumer to retrieve the data that was produced. Open a new terminal window and run the command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-console-consumer</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will bring up a list of parameters that the <code>kafka-console-consumer</code> can receive. Take a moment to look through the options.</p>
+</div>
+</li>
+<li>
+<p>Run <code>kafka-console-consumer</code> again with the following arguments:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-console-consumer \
+    --bootstrap-server kafka:9092 \
+    --from-beginning \
+    --topic testing</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After a short moment you should see all the messages that you produced using <code>kafka-console-producer</code> earlier:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>some data
+more data
+final data</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Press <code>Ctrl+D</code> to exit the <code>kafka-console-producer</code> program.</p>
+</li>
+<li>
+<p>Press <code>Ctrl+C</code> to exit <code>kafka-console-consumer</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_optional_working_with_record_keys">OPTIONAL: Working with record keys</h4>
+<div class="paragraph">
+<p>By default, <code>kafka-console-producer</code> and <code>kafka-console-consumer</code> assume null keys. They can also be run with appropriate arguments to write and read keys as well as values.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Re-run the Producer with additional arguments to write (key,value) pairs to the Topic:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-console-producer \
+    --bootstrap-server kafka:9092 \
+    --topic testing \
+    --property parse.key=true \
+    --property key.separator=,</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Enter a few values such as:</p>
+<div class="listingblock">
+<div class="content">
+<pre>&gt; <strong>1,my first record</strong>
+&gt; <strong>2,another record</strong>
+&gt; <strong>3,Kafka is cool</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Press <code>Ctrl+D</code> to exit the producer.</p>
+</li>
+<li>
+<p>Now run the <strong>Consumer</strong> with additional arguments to print the key as well as the value:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-console-consumer \
+    --bootstrap-server kafka:9092 \
+    --from-beginning \
+    --topic testing \
+    --property print.key=true</strong>
+
+null	some data
+null	more data
+null	final data
+1	my first record
+2	another record
+3	Kafka is cool</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note the <code>NULL</code> values for the first 3 records that we entered earlier&#8230;&#8203;</p>
+</div>
+</li>
+<li>
+<p>Press <code>Ctrl+C</code> to exit the consumer.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_the_zookeeper_shell">The ZooKeeper Shell</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Kafka&#8217;s data in ZooKeeper can be accessed using the <code>zookeeper-shell</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>zookeeper-shell zookeeper</strong>
+Connecting to zookeeper
+Welcome to ZooKeeper!
+JLine support is disabled
+
+WATCHER::
+
+WatchedEvent state:SyncConnected type:None path:null</pre>
+</div>
+</div>
+</li>
+<li>
+<p>From within the <code>zookeeper-shell</code> application, type <code>ls /</code> to view the directory structure in ZooKeeper. Note the <code>/</code> is required.</p>
+<div class="listingblock">
+<div class="content">
+<pre><strong>ls /</strong>
+[admin, brokers, cluster, config, consumers, controller, controller_epoch, isr_change_notification, latest_producer_id_block, log_dir_event_notification, zookeeper]</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Type <code>ls /brokers</code> to see this next level of the directory structure.</p>
+<div class="listingblock">
+<div class="content">
+<pre><strong>ls /brokers</strong>
+[ids, seqid, topics]</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Type <code>ls /brokers/ids</code> to see the broker ids for the Kafka cluster.</p>
+<div class="listingblock">
+<div class="content">
+<pre><strong>ls /brokers/ids</strong>
+[101]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note the output <code>[101]</code>, indicating that we have a single broker with ID <code>101</code> in our cluster.</p>
+</div>
+</li>
+<li>
+<p>Type <code>get /brokers/ids/101</code> to see the metadata for broker 101.</p>
+<div class="listingblock">
+<div class="content">
+<pre><strong>get /brokers/ids/101</strong>
+{"listener_security_protocol_map":{"PLAINTEXT":"PLAINTEXT"},"endpoints":["PLAINTEXT://kafka:9092"],"jmx_port":-1,"host":"kafka","timestamp":"1581126250804","port":9092,"version":4}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Type <code>get /brokers/topics/testing/partitions/0/state</code> to see the metadata for partition 0 of topic <code>testing</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre><strong>get /brokers/topics/testing/partitions/0/state</strong>
+{"controller_epoch":1,"leader":101,"version":1,"leader_epoch":0,"isr":[101]}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note: During client startup, it requests cluster metadata from a broker in the <code>bootstrap.servers</code> list. The output of the two previous commands reflects a bit of this cluster metadata included in the broker response. We will cover this metadata request in more detail later in this course.</p>
+</div>
+</li>
+<li>
+<p>Press <code>Ctrl+D</code> to exit the ZooKeeper shell.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_conclusion">Conclusion</h4>
+<div class="paragraph">
+<p>In this lab you have used Kafka command line tools to create a topic, write and read from this topic. Finally you have used the ZooKeeper shell tool to access data stored within ZooKeeper.</p>
+</div>
+<div class="paragraph">
+<p> <br>
+ <br>
+ <br></p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/stophand.png" alt="stophand" width="200">
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>STOP HERE. THIS IS THE END OF THE EXERCISE.</strong></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_02_producing_messages_to_kafka">Lab 02 Producing Messages to Kafka</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_kafka_producer_java_c_python">a. Kafka Producer (Java, C#, Python)</h3>
+<div class="paragraph">
+<p>The goal of this lab is to create a simple producer. The producer application reads a file of latitude and longitude values and writes to the topic <code>driver-positions</code>.  See an example file at <code>~/confluent-dev/challenge/java-producer/drivers/driver-1.csv</code>. For each entry in the file the application writes a Kafka record. When the application reaches the end of the file it loops back to the top. The record is created with the driver id as the key, and the comma separated latitude and longitude as the value.  For example:</p>
+</div>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">driver-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">47.5952,-122.3316</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="_prerequisites_2">Prerequisites</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a id="step-1"></a>Use the command in the table below to navigate to the project folder for your language. Click the associated hyperlink to open the API reference:</p>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 50%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Language</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">API Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/java-producer</strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://kafka.apache.org/30/javadoc/org/apache/kafka/clients/producer/KafkaProducer.html" target="_blank" rel="noopener">Class KafkaProducer&lt;K,V&gt;</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C#</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/dotnet-producer</strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.IProducer-2.html" target="_blank" rel="noopener">Interface IProducer&lt;TKey, TValue&gt;</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/python-producer</strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://docs.confluent.io/current/clients/confluent-kafka-python/index.html#producer" target="_blank" rel="noopener">class confluent_kafka.Producer</a></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Run the Kafka cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center create-topics webserver</strong></pre>
+</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/producing/java-producer.png" alt="java producer" width="80%">
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>create-topics</code> container creates the topics for all of the upcoming exercises and then exits. The <code>webserver</code> container is running a web application that is consuming from the <code>driver-positions</code> and displaying the position of each driver.</p>
+</div>
+</li>
+<li>
+<p>View the application at <a href="http://localhost:3001" target="_blank" rel="noopener">http://localhost:3001</a>. You will see a driver appear on the map when you complete the code challenges in this exercise.</p>
+</li>
+<li>
+<p>Run the <code>kafka-topics</code> command to see the new topics.  All of the new topics are prefixed with <code>driver</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-topics --bootstrap-server kafka:9092 --describe | grep 'driver'</strong>
+Topic: driver-positions-pyavro	PartitionCount: 3	ReplicationFactor: 1	Configs:
+	Topic: driver-positions-pyavro	Partition: 0	Leader: 101	Replicas: 101	Isr: 101	Offline:
+	Topic: driver-positions-pyavro	Partition: 1	Leader: 101	Replicas: 101	Isr: 101	Offline:
+	Topic: driver-positions-pyavro	Partition: 2	Leader: 101	Replicas: 101	Isr: 101	Offline:
+...</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If any replicas were listed as offline, this would be an indication that the corresponding broker is also offline.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>If you are completing the C# or Python exercise, install the dependencies.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For C#:</p>
+<div class="paragraph">
+<p>First, install dotnet running this command. You&#8217;ll be prompted to enter the password: <strong>training</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>~/confluent-dev/dotnet-install.sh</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>dotnet restore</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>For Python:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>pip3 install -r requirements.txt</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Open the project in Visual Studio Code. As always, make sure you open VS Code in the correct project folder as specified in <a href="#step-1">step 1</a>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>code .</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_writing_the_producer">Writing the Producer</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the implementation file for your language of choice</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Java <code>src/main/java/clients/Producer.java</code></p>
+</li>
+<li>
+<p>C#: <code>Program.cs</code></p>
+</li>
+<li>
+<p>Python: <code>main.py</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Locate the <code>TODO</code> comments in your implementation file. Use the API reference for your language to attempt each challenge. Solutions are provided at the end of this lab and in the <code>~/confluent-dev/solution</code> folder.</p>
+</li>
+<li>
+<p>At any time run the application by selecting the menu <strong>Run</strong> &#8594; <strong>Start Debugging</strong> in VS Code. As you complete the challenges try to produce a similar output from your application:</p>
+<div class="listingblock">
+<div class="content">
+<pre>Starting Java producer.
+Sent Key:driver-1 Value:47.618579,-122.355081
+Sent Key:driver-1 Value:47.618577152452055,-122.35520620652974
+Sent Key:driver-1 Value:47.61857902704408,-122.35507321130525
+Sent Key:driver-1 Value:47.618579488930855,-122.35494018791431
+Sent Key:driver-1 Value:47.61857995081763,-122.35480716452278
+...</pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Are you having issues with VS code debugging?</strong></p>
+</div>
+<div class="paragraph">
+<p>Here are some common issues you can check for:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Did you launch <code>code</code> from the correct directory? Ensure you&#8217;ve followed the <code>cd</code> command above to change to the project folder.</p>
+</li>
+<li>
+<p>Do you miss an earlier step? Quit VS Code, run the missing step, and relaunch VS Code.</p>
+</li>
+<li>
+<p>Java users: if VS Code is still having an issue after relaunching try cleaning your workspace. Click the cog wheel icon at the bottom left of VS Code, click <strong>Command Palette</strong>, search for and select <strong>Java: Clean the Java language server workspace</strong>, click <strong>Restart and delete</strong>.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>When you have the application producing data, leave the application running, and return to the web application at <a href="http://localhost:3001" target="_blank" rel="noopener">http://localhost:3001</a>.</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you are interested in the inner workings of the web application the source code is available at <code>~/confluent-dev/webserver</code>. The web application is a simple Node.js Express web application that contains a Kafka consumer reading from a topic and delivering the records via a Socket.IO websocket to the front end.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Use the <code>kafka-console-consumer</code> tool to view the data on the <code>driver-positions</code> topic:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-console-consumer --bootstrap-server kafka:9092 \
+     --topic driver-positions \
+     --property print.key=true \
+     --from-beginning</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Exit the consumer with <code>Ctrl+C</code>.</p>
+</div>
+</li>
+<li>
+<p>When you have completed the challenges, stop the debugger in VS Code.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions">Extra Challenges and Questions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The producer application takes the driver ID from an environment variable <code>DRIVER_ID</code>. From new terminal windows run the producer with several different driver IDs. Observe the web application at <a href="http://localhost:3001" target="_blank" rel="noopener">http://localhost:3001</a>. When you have finished exit your producers with <code>Ctrl+C</code>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Java</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev/solution/java-producer &amp;&amp; \
+   DRIVER_ID=driver-3 ./gradlew run --console plain</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>C#</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev/solution/dotnet-producer &amp;&amp; \
+   DRIVER_ID=driver-3 dotnet run</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Python</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev/solution/python-producer &amp;&amp; \
+   DRIVER_ID=driver-3 python3 main.py</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Experiment with producer settings of <code>batch.size</code> (default: 16384) and <code>linger.ms</code> (default: 0 ms). How would you expect the producer to behave with the settings below?  Observe the web application at <a href="http://localhost:3001" class="bare">http://localhost:3001</a>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Java</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="n">settings</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="nc">ProducerConfig</span><span class="o">.</span><span class="na">BATCH_SIZE_CONFIG</span><span class="o">,</span> <span class="mi">16384</span><span class="o">);</span>
+<span class="n">settings</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="nc">ProducerConfig</span><span class="o">.</span><span class="na">LINGER_MS_CONFIG</span><span class="o">,</span> <span class="mi">5000</span><span class="o">);</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>C#</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c#"><span class="n">BatchNumMessages</span> <span class="p">=</span> <span class="m">16384</span><span class="p">,</span>
+<span class="n">LingerMs</span> <span class="p">=</span> <span class="m">5000</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Python</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="python"><span class="s">'batch.num.messages'</span><span class="p">:</span> <span class="mi">16384</span><span class="p">,</span>
+<span class="s">'linger.ms'</span><span class="p">:</span> <span class="mi">5000</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="_java_solution">Java Solution</h4>
+<div class="listingblock">
+<div class="title">solution/java-producer/src/main/java/clients/Producer.java</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="c1">// TODO: configure the location of the bootstrap server</span>
+<span class="n">settings</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="nc">ProducerConfig</span><span class="o">.</span><span class="na">BOOTSTRAP_SERVERS_CONFIG</span><span class="o">,</span> <span class="s">"kafka:9092"</span><span class="o">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="c1">// TODO: populate the message object</span>
+<span class="kd">final</span> <span class="nc">ProducerRecord</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">record</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ProducerRecord</span><span class="o">&lt;&gt;(</span><span class="no">KAFKA_TOPIC</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="c1">// TODO: write the lat/long position to a Kafka topic</span>
+<span class="c1">// TODO: print the key and value in the callback lambda</span>
+<span class="n">producer</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">record</span><span class="o">,</span> <span class="o">(</span><span class="n">md</span><span class="o">,</span> <span class="n">e</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"Sent Key:%s Value:%s\n"</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+<span class="o">});</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_c_solution">C# Solution</h4>
+<div class="listingblock">
+<div class="title">solution/dotnet-producer/Program.cs</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c#"><span class="c1">// TODO: configure the location of the bootstrap server</span>
+<span class="n">BootstrapServers</span> <span class="p">=</span> <span class="s">"kafka:9092"</span><span class="p">,</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c#"><span class="c1">// TODO: populate the message object</span>
+<span class="kt">var</span> <span class="n">message</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Message</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="kt">string</span><span class="p">&gt;</span> <span class="p">{</span> <span class="n">Key</span> <span class="p">=</span> <span class="n">driverId</span><span class="p">,</span> <span class="n">Value</span> <span class="p">=</span> <span class="n">line</span> <span class="p">};</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c#"><span class="c1">// TODO: write the lat/long position to a Kafka topic</span>
+<span class="c1">// TODO: configure handler as a callback to print the key and value</span>
+<span class="n">producer</span><span class="p">.</span><span class="nf">Produce</span><span class="p">(</span><span class="n">KafkaTopic</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">handler</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_python_solution">Python Solution</h4>
+<div class="listingblock">
+<div class="title">solution/python-producer/main.py</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="py"><span class="c1">#TODO: configure the location of the bootstrap server
+</span><span class="s">'bootstrap.servers'</span><span class="p">:</span> <span class="s">'kafka:9092'</span><span class="p">,</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="py"><span class="c1">#TODO: write the lat/long position to a Kafka topic
+#TODO: configure delivery_report as a callback to print the key and value
+</span><span class="n">producer</span><span class="p">.</span><span class="n">produce</span><span class="p">(</span>
+    <span class="n">KAFKA_TOPIC</span><span class="p">,</span>
+    <span class="n">key</span><span class="o">=</span><span class="n">DRIVER_ID</span><span class="p">,</span>
+    <span class="n">value</span><span class="o">=</span><span class="n">line</span><span class="p">,</span>
+    <span class="n">on_delivery</span><span class="o">=</span><span class="n">delivery_report</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_solutions">Extra Challenges and Questions Solutions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you followed the steps successfully you will see multiple cars driving on the map.</p>
+</li>
+<li>
+<p>With the supplied settings for <code>batch.size</code> and <code>linger.ms</code> the consumer is batching up records. The amount of batched data never exceeds the <code>batch.size</code>, so the batch is sent to the broker when the <code>linger.ms</code> of seconds is met. From the <a href="https://kafka.apache.org/documentation/#linger.ms" target="_blank" rel="noopener">producer documentation</a>:</p>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>linger.ms: &#8230;&#8203;This setting gives the upper bound on the delay for batching: once we get batch.size worth of records for a partition it will be sent immediately regardless of this setting, however if we have fewer than this many bytes accumulated for this partition we will 'linger' for the specified time waiting for more records to show up&#8230;&#8203;</p>
+</div>
+</blockquote>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/stophand.png" alt="stophand" width="200">
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>STOP HERE. THIS IS THE END OF THE EXERCISE.</strong></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_04_consuming_messages_from_kafka">Lab 04 Consuming Messages from Kafka</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_kafka_consumer_java_c_python">a. Kafka Consumer (Java, C#, Python)</h3>
+<div class="paragraph">
+<p>The goal of this lab is to create a simple Kafka consumer, that consumes records from the <code>driver-positions</code> topic.</p>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites_3">Prerequisites</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the command in the table below to navigate to the project folder for your language. Click the associated hyperlink to open the API reference:</p>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 50%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Language</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">API Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/java-consumer</strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://kafka.apache.org/10/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html" target="_blank" rel="noopener">Class KafkaConsumer&lt;K,V&gt;</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C#</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/dotnet-consumer</strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.IConsumer-2.html" target="_blank" rel="noopener">Interface IConsumer&lt;TKey, TValue&gt;</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/python-consumer</strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://docs.confluent.io/current/clients/confluent-kafka-python/index.html#consumer" target="_blank" rel="noopener">class confluent_kafka.Consumer</a></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Run the Kafka cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center create-topics webserver</strong></pre>
+</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/consuming/java-consumer.png" alt="java consumer" width="80%">
+</div>
+</div>
+</li>
+<li>
+<p>If you are completing the C# or Python exercise, install the dependencies.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For C#:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>dotnet restore</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>For Python:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>pip3 install -r requirements.txt</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Open the project in Visual Studio Code:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>code .</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_writing_the_consumer">Writing the Consumer</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the producer solution from the previous exercise in a terminal window. This will give you live data in the <code>driver-positions</code> topic. From a terminal window run:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev/solution/java-producer &amp;&amp; \
+  ./gradlew run --console plain</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Open the implementation file for your language of choice</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Java: <code>src/main/java/clients/Consumer.java</code></p>
+</li>
+<li>
+<p>C#: <code>Program.cs</code></p>
+</li>
+<li>
+<p>Python: <code>main.py</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Locate the <code>TODO</code> comments in your implementation file. Use the API reference for your language to attempt each challenge. Solutions are provided at the end of this lab and in the <code>~/confluent-dev/solution</code> folder.</p>
+</li>
+<li>
+<p>At any time run the application by selecting the menu <strong>Run</strong> &#8594; <strong>Start Debugging</strong> in VS Code. As you complete the challenges try to produce a similar output from your application:</p>
+<div class="listingblock">
+<div class="content">
+<pre>Starting Java Consumer.
+Key:driver-1 Value:47.618579,-122.355081 [partition 1]
+Key:driver-1 Value:47.618577152452055,-122.35520620652974 [partition 1]
+Key:driver-1 Value:47.61857902704408,-122.35507321130525 [partition 1]
+Key:driver-1 Value:47.618579488930855,-122.35494018791431 [partition 1]
+Key:driver-1 Value:47.61857995081763,-122.35480716452278 [partition 1]
+...</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Leave your consumer running. In a terminal window run this command to inspect the status of your consumer group:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-consumer-groups \
+    --bootstrap-server kafka:9092 \
+    --describe \
+    --group java-consumer \
+    --group csharp-consumer \
+    --group python-consumer</strong>
+
+GROUP           TOPIC            PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG ...
+csharp-consumer driver-positions 0          -               0               -
+csharp-consumer driver-positions 1          2148            2153            5
+csharp-consumer driver-positions 2          -               0               -</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can see some interesting metrics for your topic consumption. <code>CURRENT-OFFSET</code> is the last <em>committed</em> offset from your consumers. <code>LOG-END-OFFSET</code> is the last offset in each partition. <code>LAG</code> is <em>how far behind</em> the consumption is, or in other words <code>LOG-END-OFFSET - CURRENT-OFFSET</code>. These metrics are very useful when checking if your consumption is keeping up with production.</p>
+</div>
+</li>
+<li>
+<p>When you have completed the challenges, stop the debugger in VS Code.</p>
+</li>
+<li>
+<p>Return to the terminal window running the producer solution.  Press <code>Ctrl+C</code> to exit the producer.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_2">Extra Challenges and Questions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>End your processing, and launch the consumer again. You&#8217;ll see that the second time you run the application processing begins from a non-zero offset. Does <code>auto.offset.reset</code> apply the second time the application is run?</p>
+</li>
+<li>
+<p>How do consumers know where to begin their processing?</p>
+</li>
+<li>
+<p>Can you think of a way to make your next run of the application begin at the offset at the start of each partition?</p>
+</li>
+<li>
+<p>Experiment with consumer settings of <code>fetch.max.wait.ms</code> (default: 500ms) and <code>fetch.min.bytes</code> (default: 1 byte). How would you expect the consumer to behave with the settings below?</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Java</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="n">settings</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="nc">ConsumerConfig</span><span class="o">.</span><span class="na">FETCH_MAX_WAIT_MS_CONFIG</span><span class="o">,</span> <span class="s">"5000"</span><span class="o">);</span>
+<span class="n">settings</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="nc">ConsumerConfig</span><span class="o">.</span><span class="na">FETCH_MIN_BYTES_CONFIG</span><span class="o">,</span> <span class="s">"5000000"</span><span class="o">);</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>C#</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c#"><span class="n">FetchWaitMaxMs</span> <span class="p">=</span> <span class="m">5000</span><span class="p">,</span>
+<span class="n">FetchMinBytes</span> <span class="p">=</span> <span class="m">5000000</span><span class="p">,</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Python</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="python"><span class="s">"fetch.wait.max.ms"</span><span class="p">:</span> <span class="s">"5000"</span><span class="p">,</span>
+<span class="s">"fetch.min.bytes"</span><span class="p">:</span> <span class="s">"5000000"</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="_java_solution_2">Java Solution</h4>
+<div class="listingblock">
+<div class="title">solution/java-consumer/src/main/java/clients/Consumer.java</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="c1">// TODO: Poll for available records</span>
+<span class="kd">final</span> <span class="nc">ConsumerRecords</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">records</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">poll</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofMillis</span><span class="o">(</span><span class="mi">100</span><span class="o">));</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="c1">// TODO: print the contents of the record</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"Key:%s Value:%s [partition %s]\n"</span><span class="o">,</span>
+    <span class="n">record</span><span class="o">.</span><span class="na">key</span><span class="o">(),</span> <span class="n">record</span><span class="o">.</span><span class="na">value</span><span class="o">(),</span> <span class="n">record</span><span class="o">.</span><span class="na">partition</span><span class="o">());</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_c_solution_2">C# Solution</h4>
+<div class="listingblock">
+<div class="title">solution/dotnet-consumer/Program.cs</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c#"><span class="c1">// TODO: Consume available records</span>
+<span class="kt">var</span> <span class="n">cr</span> <span class="p">=</span> <span class="n">consumer</span><span class="p">.</span><span class="nf">Consume</span><span class="p">(</span><span class="n">cts</span><span class="p">.</span><span class="n">Token</span><span class="p">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c#"><span class="c1">// TODO: print the contents of the record</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"Key:</span><span class="p">{</span><span class="n">cr</span><span class="p">.</span><span class="n">Message</span><span class="p">.</span><span class="n">Key</span><span class="p">}</span><span class="s"> Value:</span><span class="p">{</span><span class="n">cr</span><span class="p">.</span><span class="n">Message</span><span class="p">.</span><span class="n">Value</span><span class="p">}</span><span class="s"> [partition </span><span class="p">{</span><span class="n">cr</span><span class="p">.</span><span class="n">Partition</span><span class="p">.</span><span class="n">Value</span><span class="p">}</span><span class="s">]"</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_python_solution_2">Python Solution</h4>
+<div class="listingblock">
+<div class="title">solution/python-consumer/main.py</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="py"><span class="c1">#TODO: Poll for available records
+</span><span class="n">msg</span> <span class="o">=</span> <span class="n">consumer</span><span class="p">.</span><span class="n">poll</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="py"><span class="c1">#TODO: print the contents of the record
+</span><span class="k">print</span><span class="p">(</span><span class="s">"Key:{} Value:{} [partition {}]"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span>
+    <span class="n">msg</span><span class="p">.</span><span class="n">key</span><span class="p">().</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span>
+    <span class="n">msg</span><span class="p">.</span><span class="n">value</span><span class="p">().</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">),</span>
+    <span class="n">msg</span><span class="p">.</span><span class="n">partition</span><span class="p">()</span>
+<span class="p">))</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_solutions_2">Extra Challenges and Questions Solutions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>auto.offset.reset</code> would not be used on the second launch of your consumer. <code>auto.offset.reset</code> is used when there is no committed position (e.g. the group is first initialized) or when an offset is out of range.</p>
+</li>
+<li>
+<p>An instance in a consumer group sends its offset commits and fetches to a group coordinator broker. The group coordinators read from and write to special compacted Kafka topic named <em>__consumer_offsets</em>.</p>
+<div class="paragraph">
+<p>Curious about the <em>__consumer_offsets</em> topic? You can consume message on this topic while your consumer runs with the command below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-console-consumer --bootstrap-server kafka:9092 \
+--topic __consumer_offsets \
+--formatter "kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageFormatter" \
+| grep 'driver-positions'</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You could begin consumption at the start of each partition simply by updating your consumer to use a new <code>GROUP_ID</code>. Also, the utility <code>kafka-consumer-groups</code> has a parameter <code>--to-earliest</code> which will set  offsets to earliest offset. In the next exercise we will see how to programmatically <em>seek</em> to an offset for consumption.</p>
+</li>
+<li>
+<p>With the supplied settings for <code>fetch.max.wait.ms</code> and <code>fetch.min.bytes</code> we see results roughly every 5 seconds. From the <a href="http://kafka.apache.org/documentation/#consumerconfigs" target="_blank" rel="noopener">consumer documentation</a>:</p>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>fetch.max.wait.ms: The maximum amount of time the server will block before answering the fetch request if there isn&#8217;t sufficient data to immediately satisfy the requirement given by fetch.min.bytes.</p>
+</div>
+</blockquote>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/stophand.png" alt="stophand" width="200">
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>STOP HERE. THIS IS THE END OF THE EXERCISE.</strong></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_07_schema_management_in_apache_kafka">Lab 07 Schema Management in Apache Kafka</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_schema_registry_avro_producer_and_consumer_java_c_python">a. Schema Registry, Avro Producer and Consumer (Java, C#, Python)</h3>
+<div class="paragraph">
+<p>The goal of this lab is to update our simple producer to write to an AVRO serialized topic <code>driver-positions-avro</code>. The code is very similar to your previous producer lab. The code will now communicate with Schema Registry to store and retrieve schemas, and will serialize the structured data in AVRO format.</p>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites_4">Prerequisites</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the command in the table below to navigate to the project folder for your language:</p>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Language</th>
+<th class="tableblock halign-left valign-top">Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/java-producer-avro</strong></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C#</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/dotnet-producer-avro</strong></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/python-producer-avro</strong></code></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Run the Kafka cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center create-topics \
+     schema-registry webserver-avro</strong></pre>
+</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/schema-management/lab-diagram.svg" alt="lab diagram" width="100%">
+</div>
+</div>
+<div class="paragraph">
+<p>You have some new containers you haven&#8217;t seen before, Schema Registry and an updated version of the web application that can deserialize AVRO serialized data.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_writing_the_avro_producer">Writing the Avro Producer</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you are completing the <strong>Java</strong> exercise:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Inspect the schema file at <code>src/main/avro/position_value.avsc</code>.</p>
+</li>
+<li>
+<p>The supplied <code>build.gradle</code> file contains Avro plugin <code>com.commercehub.gradle.plugin.avro</code> which includes a task <code>generateAvroJava</code> to generate POJOs (Plain Old Java Objects/classes) from any Avro schemas in the project.</p>
+</li>
+<li>
+<p>Use <code>gradle</code> to generate the AVRO class:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>./gradlew build</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If you are completing the <strong>C#</strong> exercise:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Inspect the schema file at <code>position_value.avsc</code>.</p>
+</li>
+<li>
+<p>Install the  <code>avrogen</code> tool:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>dotnet tool install -g Confluent.Apache.Avro.AvroGen</strong></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You may need to restart the VM to use <code>avrogen</code> in the next step. After restarting, you&#8217;ll need to run again:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center create-topics schema-registry webserver-avro</strong></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Use the <code>avrogen</code> to generate the AVRO class:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>avrogen -s position_value.avsc .</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Restore dependencies for your project:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>dotnet restore</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If you are completing the <strong>Python</strong> exercise:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Inspect the schema file at <code>position_value.avsc</code>.</p>
+</li>
+<li>
+<p>Install the dependencies:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>pip3 install -r requirements.txt</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Open the project in Visual Studio Code:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>code .</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Open the implementation file for your language of choice. Can you determine what has changed from the previous producer exercise?</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Java <code>src/main/java/clients/Producer.java</code></p>
+</li>
+<li>
+<p>C#: <code>Program.cs</code></p>
+</li>
+<li>
+<p>Python: <code>main.py</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Run the application by selecting the menu <strong>Run</strong> &#8594; <strong>Start Debugging</strong> in VS Code. You will see your application output:</p>
+<div class="listingblock">
+<div class="content">
+<pre>Starting Java Avro producer.
+...
+Sent Key:driver-1 Latitude:47.618579 Longitude:-122.355081
+Sent Key:driver-1 Latitude:47.618577152452055 Longitude:-122.35520620652974
+Sent Key:driver-1 Latitude:47.61857902704408 Longitude:-122.35507321130525
+Sent Key:driver-1 Latitude:47.618579488930855 Longitude:-122.35494018791431
+...</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Leave your Avro producer application running. You can view the web application at <a href="http://localhost:3002" target="_blank" rel="noopener">http://localhost:3002</a>.</p>
+</li>
+<li>
+<p>Stop the debugger in VS Code.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_optional_inspecting_the_schema_registry_rest_api"><strong>OPTIONAL:</strong> Inspecting the Schema Registry REST API</h4>
+<div class="paragraph">
+<p>Next you will inspect the contents and settings of Schema Registry via the REST API. See more details about the API at <a href="https://docs.confluent.io/current/schema-registry/develop/api.html" target="_blank" rel="noopener">Schema Registry API Reference</a>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find all the <strong>subjects</strong> in your Schema Registry:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>curl schema-registry:8081/subjects</strong>
+["driver-positions-avro-value"]</pre>
+</div>
+</div>
+</li>
+<li>
+<p>How many versions do you see for your subject?</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>curl schema-registry:8081/subjects/driver-positions-avro-value/versions</strong>
+[1]</pre>
+</div>
+</div>
+</li>
+<li>
+<p>View the contents of version 1 of the schema:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>curl -s schema-registry:8081/subjects/driver-positions-avro-value/versions/1</strong>
+{"subject":"driver-positions-avro-value","version":1,"id":1,"schema":"{\"type\":\"record\",\"name\":\"PositionValue\",\"namespace\":\"clients.avro\",\"fields\":[{\"name\":\"latitude\",\"type\":\"double\"},{\"name\":\"longitude\",\"type\":\"double\"}]}"}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can get the schema for a specific version of a subject with the <code>/subjects/(string: subject)/versions/(versionId: version)/schema</code> path. You can pipe this to <code>jq</code> for pretty printing:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>curl -s schema-registry:8081/subjects/driver-positions-avro-value/versions/1/schema \
+  | jq .</strong>
+{
+  "type": "record",
+  "name": "PositionValue",
+  "namespace": "clients.avro",
+  "fields": [
+    {
+      "name": "latitude",
+      "type": "double"
+    },
+    {
+      "name": "longitude",
+      "type": "double"
+    }
+  ]
+}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Our Avro producer self-registered the <code>driver-positions-avro-value</code> schema subject when it produced its first record. In a production environment, we would typically have pre-registered the schema subject using the Schema Registry REST API. Let&#8217;s run the command to do so now and observe the result.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>curl -XPOST  -H "Content-Type: application/vnd.schemaregistry.v1+json"  schema-registry:8081/subjects/driver-positions-avro-value/versions/  -d '{ "schema":"{\"type\":\"record\",\"name\":\"PositionValue\",\"namespace\":\"clients.avro\",\"fields\":[{\"name\":\"latitude\",\"type\":\"double\"},{\"name\":\"longitude\",\"type\":\"double\"}]}"}'</strong>
+{"id":1}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The command responds with the schema ID.</p>
+</div>
+</li>
+<li>
+<p>Check the default compatibility setting:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>curl schema-registry:8081/config</strong>
+{"compatibilityLevel":"BACKWARD"}</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_writing_the_avro_consumer">Writing the Avro Consumer</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the command in the table below to navigate to the project folder for your language:</p>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 83.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Language</th>
+<th class="tableblock halign-left valign-top">Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/java-consumer-avro</strong></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C#</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/dotnet-consumer-avro</strong></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/python-consumer-avro</strong></code></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Complete the same initialization steps you did for the producer exercise.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Java</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>./gradlew build</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>C#</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>avrogen -s position_value.avsc . ; dotnet restore</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Python</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>pip3 install -r requirements.txt</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Open the project in Visual Studio Code:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>code .</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the application by selecting the menu <strong>Run</strong> &#8594; <strong>Start Debugging</strong> in VS Code. You will see your application output:</p>
+<div class="listingblock">
+<div class="content">
+<pre>Starting Java Avro Consumer.
+Key:driver-1 Latitude:47.618579 Longitude:-122.355081 [partition 1]
+Key:driver-1 Latitude:47.618577152452055 Longitude:-122.35520620652974 [partition 1]
+Key:driver-1 Latitude:47.61857902704408 Longitude:-122.35507321130525 [partition 1]
+Key:driver-1 Latitude:47.618579488930855 Longitude:-122.35494018791431 [partition 1]
+Key:driver-1 Latitude:47.61857995081763 Longitude:-122.35480716452278 [partition 1]
+...</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_3">Extra Challenges and Questions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Inspect the logs of your Schema Registry docker container:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose logs schema-registry | grep '/schemas/ids/1'</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>How many requests to <code>GET /schemas/ids/1</code> do you see?  Can you explain the number of requests?</p>
+</div>
+</li>
+<li>
+<p>Modify the earlier <code>curl -XPOST</code> command to register a new schema version that doesn&#8217;t meet the current Schema Registry compatibility setting.</p>
+</li>
+<li>
+<p>Advanced challenge: Try adding a field with a default value to your AVRO producer, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="json"><span class="p">{</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"latitude"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"longitude"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">}</span><span class="err">,</span><span class="w">
+</span><span class="p">{</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"altitude"</span><span class="p">,</span><span class="w"> </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"double"</span><span class="p">,</span><span class="w"> </span><span class="nl">"default"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.0</span><span class="p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Would this be BACKWARD compatible? Would this be FORWARD compatible? See the documentation for <a href="https://docs.confluent.io/current/schema-registry/avro.html#compatibility-types" target="_blank" rel="noopener">Compatibility Types</a>. Try producing data to your existing topic with a dummy value for altitude (fun fact: Seattle&#8217;s highest point is 512ft). Can the consumer application or web application still consume from this topic?</p>
+</div>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_solutions_3">Extra Challenges and Questions Solutions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A consumer loads a schema when it first sees a record for the schema id, and caches the result for subsequent records.</p>
+</li>
+<li>
+<p>Adding a field without a default value would not meet the BACKWARD compatibility requirement, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>curl -XPOST  -H "Content-Type: application/vnd.schemaregistry.v1+json"  schema-registry:8081/subjects/driver-positions-avro-value/versions/  -d '{ "schema":"{\"type\":\"record\",\"name\":\"PositionValue\",\"namespace\":\"clients.avro\",\"fields\":[{\"name\":\"latitude\",\"type\":\"double\"},{\"name\":\"longitude\",\"type\":\"double\"},{\"name\":\"new_field\",\"type\":\"double\"}]}"}'</strong>
+{"error_code":409,"message":"Schema being registered is incompatible with an earlier schema"}</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Adding a field with a default value is both FORWARD and BACKWARD compatible. If you were to produce data to the <code>driver-positions-avro</code> topic with a value for altitude consumers built with version 1 of the schema would ignore the values for altitude, making this update FORWARD compatible.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/stophand.png" alt="stophand" width="200">
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>STOP HERE. THIS IS THE END OF THE EXERCISE.</strong></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_08_stream_processing_with_kafka_streams">Lab 08 Stream Processing with Kafka Streams</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_kafka_streams_java">a. Kafka Streams (Java)</h3>
+<div class="paragraph">
+<p>The goal of this lab is to perform stateless operations on your <code>driver-positions-avro</code> topic to filter out the events from <code>driver-2</code>, add a new field in the value containing the Latitude and Longitude in <code>String</code> format and write the results to a new topic <code>driver-positions-string-avro</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites_5">Prerequisites</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the project folder:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev/challenge/java-streams-avro</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the Kafka cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center create-topics \
+     schema-registry producer1 producer2 producer3 producer4 \
+     webserver-avro webserver-streams</strong></pre>
+</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/stream-processing/lab-streams-diagram.svg" alt="lab streams diagram" width="100%">
+</div>
+</div>
+<div class="paragraph">
+<p>The new <code>producer</code> containers are running exactly the same code created in the <em>Avro Producer</em> exercise. These containers will simulate four drivers driving around a city. You can see the activity on the <code>driver-positions-avro</code> topic in the web application <a href="http://localhost:3002" target="_blank" rel="noopener">http://localhost:3002</a>.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_writing_the_streams_processing">Writing the Streams Processing</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the project in Visual Studio Code:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>code .</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Open the implementation file <code>src/main/java/clients/StreamsApp.java</code></p>
+</li>
+<li>
+<p>Let&#8217;s focus on the topology from Line 66 in the code. See the Kafka Streams DSL documentation for <a href="https://docs.confluent.io/platform/current/streams/developer-guide/dsl-api.html#stateless-transformations" target="_blank" rel="noopener">stateless transformations</a>. In this lab, you&#8217;ll use two transformations, <code>filter()</code> and <code>mapValues()</code>.</p>
+</li>
+<li>
+<p>The <code>filter()</code> method can be defined using a lambda expression where the inputs are the <code>key</code> and <code>value</code> of the event. It also requires a predicate/condition to define if the event is filtered or not.<br>
+Go to Lines 88-89 in the code and try to define the predicate to filter out events from <code>driver-2</code>.</p>
+<details>
+<summary class="title">Solution</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">final</span> <span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">PositionValue</span><span class="o">&gt;</span> <span class="n">positionsFiltered</span> <span class="o">=</span> <span class="n">positions</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span>
+        <span class="o">(</span><span class="n">key</span><span class="o">,</span><span class="n">value</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">!</span><span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"driver-2"</span><span class="o">));</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+</li>
+<li>
+<p>The <code>mapValues()</code> method applies a transformation to the value of each event. You can use a lambda expression to define the transformation where the input is just the value.<br>
+Go to Lines 96-104 and try to complete the missing pieces to change the value from PositionValue type to PositionString type, which contains a new field <code>positionString</code>.</p>
+<details>
+<summary class="title">Solution</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="kd">final</span> <span class="nc">KStream</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">PositionString</span><span class="o">&gt;</span> <span class="n">positionsString</span> <span class="o">=</span> <span class="n">positionsFiltered</span><span class="o">.</span><span class="na">mapValues</span><span class="o">(</span>
+    <span class="n">value</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">Double</span> <span class="n">latitude</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">getLatitude</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="nc">Double</span> <span class="n">longitude</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="na">getLongitude</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="nc">String</span> <span class="n">positionString</span> <span class="o">=</span> <span class="s">"Latitude: "</span> <span class="o">+</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">latitude</span><span class="o">)</span> <span class="o">+</span>
+                                      <span class="s">", Longitude: "</span> <span class="o">+</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">longitude</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">PositionString</span><span class="o">(</span><span class="n">latitude</span><span class="o">,</span> <span class="n">longitude</span><span class="o">,</span> <span class="n">positionString</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">);</span></code></pre>
+</div>
+</div>
+</div>
+</details>
+</li>
+<li>
+<p>Run the application by selecting the menu <strong>Run</strong> &#8594; <strong>Start Debugging</strong> in VS Code.</p>
+</li>
+<li>
+<p>View the new topic with the <code>kafka-avro-console-consumer</code> tool:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-avro-console-consumer --bootstrap-server kafka:9092 \
+    --property schema.registry.url=http://schema-registry:8081 \
+    --topic driver-positions-string-avro --property print.key=true \
+    --key-deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+    --from-beginning</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Visit the web application subscribed to <code>driver-positions-string-avro</code> at <a href="http://localhost:3003/" target="_blank" rel="noopener">http://localhost:3003/</a></p>
+</li>
+<li>
+<p>Stop the debugger in VS Code.</p>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/stophand.png" alt="stophand" width="200">
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>STOP HERE. THIS IS THE END OF THE EXERCISE.</strong></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_09_event_streaming_apps_with_ksqldb">Lab 09 Event Streaming Apps with ksqlDB</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The goal of this lab is to build an augmented (or enriched) topic from our sources of driver and position data. This position data is created by our AVRO Kafka producer, that we created earlier. The driver data is delivered manually to Kafka using the tool <code>kafka-console-producer</code>.</p>
+</div>
+<div class="sect2">
+<h3 id="_a_ksqldb_join_a_stream_and_a_table">a. ksqlDB - Join a Stream and a Table</h3>
+<div class="sect3">
+<h4 id="_prerequisites_6">Prerequisites</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the project folder:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the Kafka cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center \
+     schema-registry postgres create-topics \
+     producer1 producer2 producer3 producer4 \
+     ksqldb-server webserver-ksql</strong></pre>
+</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/ksqldb/lab-ksql-diagram.svg" alt="lab ksql diagram" width="100%">
+</div>
+</div>
+<div class="paragraph">
+<p>You have created a new <code>ksqldb-server</code> container, a webserver consuming the new topic, and containers to simulate four drivers driving around a city.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_write_driver_profiles_data_to_kafka">Write Driver Profiles data to Kafka</h4>
+<div class="paragraph">
+<p>We use the <code>kakfa-console-producer</code> to write information about each driver (name, surname, car model, etc.) to topic <code>driver-profiles-ksql</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run this command to start the <code>kafka-console-producer</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-console-producer \
+    --bootstrap-server kafka:9092 \
+    --topic driver-profiles-ksql \
+    --property parse.key=true \
+    --property key.separator=:</strong>
+&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now, the producer is waiting for inputs. Copy the messages below and paste them in the Terminal:</p>
+<div class="listingblock">
+<div class="content">
+<pre><strong>driver-1:Randall|Palmer|Toyota|Corolla
+driver-2:Razı|İnönü|Nissan|Sentra
+driver-3:美加子|桐山|Subaru|Forester
+driver-4:David|Chandler|Tesla|S</strong></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Note that you are producing messages with Key (driverId). The Value is an entire String with the fields delimited by "|".
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Exit <code>kafka-console-producer</code> pressing <code>Ctrl+C</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_create_a_table_from_drive_profiles_data">Create a Table from Drive Profiles data</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Execute the ksqlDB CLI:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>ksql http://ksqldb-server:8088</strong>
+...
+Copyright 2017-2021 Confluent Inc.
+
+CLI v7.0.0, Server v7.0.0 located at http://ksqldb-server:8088
+Server Status: RUNNING
+
+Having trouble? Type 'help' (case-insensitive) for a rundown of how things work!
+
+ksql&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create a table from the topic <code>driver-profiles-ksqlavro</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>ksql&gt; <strong>CREATE TABLE DRIVER (driverkey VARCHAR PRIMARY KEY, firstname VARCHAR, lastname VARCHAR, make VARCHAR, model VARCHAR)
+      WITH (KAFKA_TOPIC='driver-profiles-ksql', VALUE_FORMAT='delimited', VALUE_DELIMITER='|');</strong>
+
+ Message
+---------------
+ Table created
+---------------</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Set the property <code>auto.offset.reset</code> to <code>earliest</code> such as that ksqlDB returns data from the very beginning of a table or stream when querying:</p>
+<div class="listingblock">
+<div class="content">
+<pre>ksql&gt; <strong>SET 'auto.offset.reset' = 'earliest';</strong>
+Successfully changed local property 'auto.offset.reset' to 'earliest'. Use the UNSET command to revert your change.</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that there is data in the table <code>DRIVER</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>ksql&gt; <strong>SELECT * FROM DRIVER EMIT CHANGES;</strong>
++-------------+-------------+------------+----------+------------+
+|DRIVERKEY    |FIRSTNAME    |LASTNAME    |MAKE      |MODEL       |
++-------------+-------------+------------+----------+------------+
+|driver-2     |Razı         |İnönü       |Nissan    |Narkhede    |
+|driver-6     |William      |Peterson    |GM        |Berglund    |
+|driver-1     |Randall      |Palmer      |Toyota    |Offset      |
+...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and stop the query with <code>Ctrl+C</code>.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_create_a_stream_and_table_join">Create a Stream and Table Join</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a stream from the topic <code>driver-positions-avro</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>ksql&gt; <strong>CREATE STREAM DRIVERPOSITIONS (driverkey VARCHAR KEY, latitude DOUBLE, longitude DOUBLE)
+      WITH (KAFKA_TOPIC='driver-positions-avro', VALUE_FORMAT='avro');</strong>
+
+ Message
+----------------
+ Stream created
+----------------</pre>
+</div>
+</div>
+</li>
+<li>
+<p>To augment data we can join the <code>DRIVERPOSITIONS</code> stream the <code>DRIVER</code> tables. Create the join:</p>
+<div class="listingblock">
+<div class="content">
+<pre>ksql&gt; <strong>CREATE STREAM DRIVERAUGMENTED
+      WITH (kafka_topic='driver-augmented-avro', value_format='avro')
+      AS
+      SELECT
+        driverpositions.driverkey AS driverkey,
+        driverpositions.latitude,
+        driverpositions.longitude,
+        driver.firstname,
+        driver.lastname,
+        driver.make,
+        driver.model
+      FROM driverpositions
+      LEFT JOIN driver on driverpositions.driverkey = driver.driverkey
+      EMIT CHANGES;</strong>
+
+ Message
+----------------------------------------------
+ Created query with ID CSAS_DRIVERAUGMENTED_5
+----------------------------------------------</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is a <strong>create stream as select</strong> (or CSAS) command that will create a persistent query stream from an existing stream. We are now populating the <code>driver-augmented-avro</code> topic with the results of this query. You can confirm this in another terminal window with <code>kafka-avro-console-consumer</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-avro-console-consumer \
+    --bootstrap-server kafka:9092 \
+    --property schema.registry.url=http://schema-registry:8081 \
+    --topic driver-augmented-avro \
+    --property print.key=true \
+    --key-deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+    --from-beginning</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Press Ctrl+C to exit <code>kafka-avro-console-consumer</code>.</p>
+</div>
+</li>
+<li>
+<p>Return to your ksqlDB CLI and verify the join:</p>
+<div class="listingblock">
+<div class="content">
+<pre>ksql&gt; <strong>SELECT * FROM DRIVERAUGMENTED EMIT CHANGES;</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Allow the query to run until it has caught up with the live data coming from the producers. You are now seeing live driver data augmented with <em>joined</em> driver profile data. If it is taking a long time for the <code>SELECT</code> statement to catch up you can press <code>Ctrl+C</code> and enter <code>SET 'auto.offset.reset' = 'latest';</code> to set ksqlDB read from the <strong>latest</strong> offset.</p>
+</div>
+<div class="paragraph">
+<p>Stop the query with <code>Ctrl+C</code>.  Did you see <code>null</code> values in the driver profile columns at the beginning of the results?  The query is a <code>LEFT JOIN</code> - we will see records from the left side (<code>DRIVERPOSITIONS</code>) if there isn&#8217;t a matching record on the right side (<code>DRIVER</code>).  Where you see <code>null</code> values there isn&#8217;t a matching record because the position was written to the topic <em>before</em> there was a matching entry in <code>DRIVER</code> table.</p>
+</div>
+</li>
+<li>
+<p>Visit the web application consuming from the <code>driver-augmented-avro</code> topic at <a href="http://localhost:3004/" target="_blank" rel="noopener">http://localhost:3004/</a></p>
+</li>
+<li>
+<p>Exit the ksqlDB CLI by pressing <code>Ctrl+D</code>.</p>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_4">Extra Challenges and Questions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In this exercise the topics <code>driver-profiles-ksql</code> and <code>driver-positions-avro</code> are joined - what properties do the topics need in common for a successful join?</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_solutions_4">Extra Challenges and Questions Solutions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When you use ksqlDB to join streaming data, you must ensure that your streams and tables are co-partitioned. To be considered co-partitioned we look at 3 properties:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Records have the same keying scheme - both topics are keyed on <code>driver-id</code>.</p>
+</li>
+<li>
+<p>Records have the same number of partitions - both topics have 3 partitions.</p>
+</li>
+<li>
+<p>Records have the same partitioning strategy - the producers and Kafka Connect are using the default murmur2 hash partitioner.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>These properties guarantee that records of the same key will always be delivered to the same partition number in both topics. For example, <code>driver-3</code> will be delivered to partition 1 for both <code>driver-profiles-ksql</code> and <code>driver-positions-avro</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_clean_up">Clean-up</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run this command to stop all containers:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose down -v</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/stophand.png" alt="stophand" width="200">
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>STOP HERE. THIS IS THE END OF THE EXERCISE.</strong></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_11_data_pipelines_with_kafka_connect">Lab 11 Data Pipelines with Kafka Connect</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_kafka_connect_database_to_kafka">a. Kafka Connect - Database to Kafka</h3>
+<div class="paragraph">
+<p>The goal of this lab is to build a data pipeline that captures all the changes to a database table <code>driver-profiles</code> and writes the changes to a Kafka topic <code>driver-profiles-avro</code>. This can all be automated using the Kafka Connect and the JDBC source connector.</p>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites_7">Prerequisites</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the project folder:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Run the Kafka cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center create-topics \
+     schema-registry connect postgres</strong></pre>
+</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/data-pipelines/kafka-connect.png" alt="kafka connect" width="80%">
+</div>
+</div>
+<div class="paragraph">
+<p>You have now turned on containers for Kafka Connect and a Postgres database. If you look in <code>postgres/docker-entrypoint-initdb.d/001-driver.sql</code> you can see the SQL script used to create and populate the <code>driver-profiles</code> table in the Postgres database.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inspecting_postgres">Inspecting Postgres</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Inspect the contents of the <code>driver-profiles</code> table by first connecting to the Postgres database:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>psql -h postgres -U postgres</strong>
+psql (11.2)
+Type "help" for help.
+
+postgres=#</pre>
+</div>
+</div>
+</li>
+<li>
+<p>At the postgres prompt use a SQL select statement to view the contents of the <code>driver-profiles</code> table:</p>
+<div class="listingblock">
+<div class="content">
+<pre>postgres=# <strong>select * from driver;</strong>
+ id | driverkey | firstname | lastname |  make   |  model   |         timestamp
+----+-----------+-----------+----------+---------+----------+----------------------------
+  1 | driver-1  | Randall   | Palmer   | Toyota  | Offset   | 2020-01-26 01:11:31.707991
+  2 | driver-2  | Razı      | İnönü    | Nissan  | Narkhede | 2020-01-26 01:11:31.709005
+...</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Press <code>Q</code> to exit the Table View.</p>
+</li>
+<li>
+<p>Exit <code>psql</code> by pressing <code>Ctrl+D</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_install_the_kafka_connect_jdbc_connector">Install the Kafka Connect JDBC Connector</h4>
+<div class="paragraph">
+<p>We use the Kafka Connect JDBC connector in this exercise so we need to install it on the worker.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the connector with the following command (and expected response):</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose exec -u root connect confluent-hub install confluentinc/kafka-connect-jdbc:10.0.0</strong>
+The component can be installed in any of the following Confluent Platform installations:
+  1. / (installed rpm/deb package)
+  2. / (where this tool is installed)
+Choose one of these to continue the installation (1-2):</pre>
+</div>
+</div>
+</li>
+<li>
+<p>At the prompt, type <code>1</code> and press <strong>Enter</strong>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>Choose one of these to continue the installation (1-2): <strong>1</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You&#8217;ll be prompted again. At the prompt, type <code>y</code> and press <strong>Enter</strong>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>Do you want to install this into /usr/share/confluent-hub-components? (yN) <strong>y</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You&#8217;ll be prompted again. At the prompt, type <code>y</code> and press <strong>Enter</strong>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>Component's license:
+Confluent Community License
+https://www.confluent.io/confluent-community-license
+I agree to the software license agreement (yN) <strong>y</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>You&#8217;ll be prompted again. At the prompt, type <code>y</code> and press <strong>Enter</strong>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>Downloading component Kafka Connect JDBC 10.0.0, provided by Confluent, Inc. from Confluent Hub and installing into /usr/share/java/kafka
+Detected Worker's configs:
+  1. Standard: /etc/kafka/connect-distributed.properties
+  2. Standard: /etc/kafka/connect-standalone.properties
+  3. Standard: /etc/schema-registry/connect-avro-distributed.properties
+  4. Standard: /etc/schema-registry/connect-avro-standalone.properties
+  5. Used by Connect process with PID : /etc/kafka-connect/kafka-connect.properties
+Do you want to update all detected configs? (yN) <strong>y</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The installation completes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Adding installation directory to plugin path in the following files:
+  /etc/kafka/connect-distributed.properties
+  /etc/kafka/connect-standalone.properties
+  /etc/schema-registry/connect-avro-distributed.properties
+  /etc/schema-registry/connect-avro-standalone.properties
+  /etc/kafka-connect/kafka-connect.properties
+
+Completed</pre>
+</div>
+</div>
+</li>
+<li>
+<p>To complete the installation, we need to restart the <code>connect</code> container:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose restart connect</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify that the Connect Worker successfully restarted prior to continuing to the next step:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose logs connect | grep -i "INFO .* Finished starting connectors and tasks"</strong>
+connect              | [2022-04-07 18:16:59,032] INFO [Worker clientId=connect-1, groupId=connect] Finished starting connectors and tasks (org.apache.kafka.connect.runtime.distributed.DistributedHerder)
+connect              | [2022-04-07 18:32:14,011] INFO [Worker clientId=connect-1, groupId=connect] Finished starting connectors and tasks (org.apache.kafka.connect.runtime.distributed.DistributedHerder)</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Repeat this command until the <strong>Finished starting connectors and tasks</strong> message appears twice.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configure_the_avro_source_connector">Configure the AVRO source connector</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add a JDBC source connector via command line with the <code>curl</code> command below. Let&#8217;s focus on the transformations that are happening in the connector settings. You can read more about transformations in the documentation for <a href="https://docs.confluent.io/current/connect/transforms/index.html" target="_blank" rel="noopener">Kafka Connect Transformations</a>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><strong>RegexRouter</strong> By default the records would be written to a topic with the same name as the table. The setting here will update record topic to <code>driver-profiles-avro</code>.</p>
+</li>
+<li>
+<p><strong>ValueToKey</strong> The connector is configured to use the <code>driverkey</code> property as the record key. At this point the key in the record would look like <code>{driverkey=driver-5}</code>.</p>
+</li>
+<li>
+<p><strong>ExtractField$Key</strong> The connector extracts the <code>driverkey</code> field from the key and replaces the entire key with the extracted field. A key of <code>{driverkey=driver-5}</code> would be replaced with <code>driver-5</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>curl -X POST \
+  -H "Content-Type: application/json" \
+  --data '{
+    "name": "Driver-Connector-Avro",
+    "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://postgres:5432/postgres",
+      "connection.user": "postgres",
+      "table.whitelist": "driver",
+      "topic.prefix": "",
+      "mode":"timestamp+incrementing",
+      "incrementing.column.name": "id",
+      "timestamp.column.name": "timestamp",
+      "table.types": "TABLE",
+      "numeric.mapping": "best_fit",
+      "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+      "value.converter": "io.confluent.connect.avro.AvroConverter",
+      "value.converter.schema.registry.url": "http://schema-registry:8081",
+      "transforms": "suffix,createKey,extractKey",
+      "transforms.suffix.type":"org.apache.kafka.connect.transforms.RegexRouter",
+      "transforms.suffix.regex":"(.*)",
+      "transforms.suffix.replacement":"$1-profiles-avro",
+      "transforms.createKey.type": "org.apache.kafka.connect.transforms.ValueToKey",
+      "transforms.createKey.fields": "driverkey",
+      "transforms.extractKey.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+      "transforms.extractKey.field": "driverkey"
+    }
+}' http://connect:8083/connectors</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the answer should be something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="JSON">{"name":"Driver-Connector-Avro","config":{"connector.class":"io.confluent.connect.jdbc.JdbcSourceConnector","connection.url":"jdbc:postgresql://postgres:5432/postgres","connection.user":"postgres","table.whitelist":"driver","topic.prefix":"","mode":"timestamp+incrementing","incrementing.column.name":"id","timestamp.column.name":"timestamp","table.types":"TABLE","numeric.mapping":"best_fit","key.converter":"org.apache.kafka.connect.storage.StringConverter","value.converter":"io.confluent.connect.avro.AvroConverter","value.converter.schema.registry.url":"http://schema-registry:8081","transforms":"suffix,createKey,extractKey","transforms.suffix.type":"org.apache.kafka.connect.transforms.RegexRouter","transforms.suffix.regex":"(.*)","transforms.suffix.replacement":"$1-profiles-avro","transforms.createKey.type":"org.apache.kafka.connect.transforms.ValueToKey","transforms.createKey.fields":"driverkey","transforms.extractKey.type":"org.apache.kafka.connect.transforms.ExtractField$Key","transforms.extractKey.field":"driverkey","name":"Driver-Connector-Avro"},"tasks":[],"type":"source"}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Let&#8217;s see what we get:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-avro-console-consumer \
+    --bootstrap-server kafka:9092 \
+    --property schema.registry.url=http://schema-registry:8081 \
+    --topic driver-profiles-avro \
+    --property print.key=true \
+    --key-deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+    --from-beginning</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and we should see something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>driver-2	{"id":2,"driverkey":"driver-2","firstname":"Razı","lastname":"İnönü",...
+driver-6	{"id":6,"driverkey":"driver-6","firstname":"William","lastname":"Peterson",...
+driver-10	{"id":10,"driverkey":"driver-10","firstname":"Aaron","lastname":"Gill",...
+...</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+It may take several seconds for the records to appear.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Exit the consumer with <code>Ctrl+C</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_configure_the_protobuf_source_connector">Configure the Protobuf source connector</h4>
+<div class="paragraph">
+<p>Schema Registry 5.5 added support for Protobuf and JSON Schema along with Avro. You can now add a connector using a <code>ProtobufConverter</code> class.  The connector will source the same data from the Postgres database, register a Protobuf schema, and write the Protobuf serialized bytes to the Kakfa topic <code>driver-profiles-protobuf</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The command below is nearly the same as your previous command.  We have changed the: name, value.converter, and topic suffix.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>curl -X POST \
+  -H "Content-Type: application/json" \
+  --data '{
+    "name": "Driver-Connector-Protobuf",
+    "config": {
+      "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+      "connection.url": "jdbc:postgresql://postgres:5432/postgres",
+      "connection.user": "postgres",
+      "table.whitelist": "driver",
+      "topic.prefix": "",
+      "mode":"timestamp+incrementing",
+      "incrementing.column.name": "id",
+      "timestamp.column.name": "timestamp",
+      "table.types": "TABLE",
+      "numeric.mapping": "best_fit",
+      "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+      "value.converter": "io.confluent.connect.protobuf.ProtobufConverter",
+      "value.converter.schema.registry.url": "http://schema-registry:8081",
+      "transforms": "suffix,createKey,extractKey",
+      "transforms.suffix.type":"org.apache.kafka.connect.transforms.RegexRouter",
+      "transforms.suffix.regex":"(.*)",
+      "transforms.suffix.replacement":"$1-profiles-protobuf ",
+      "transforms.createKey.type": "org.apache.kafka.connect.transforms.ValueToKey",
+      "transforms.createKey.fields": "driverkey",
+      "transforms.extractKey.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+      "transforms.extractKey.field": "driverkey"
+    }
+}' http://connect:8083/connectors</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the answer should be something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="JSON">{"name":"Driver-Connector-Protobuf","config":{"connector.class":"io.confluent.connect.jdbc.JdbcSourceConnector","connection.url":"jdbc:postgresql://postgres:5432/postgres","connection.user":"postgres","table.whitelist":"driver","topic.prefix":"","mode":"timestamp+incrementing","incrementing.column.name":"id","timestamp.column.name":"timestamp","table.types":"TABLE","numeric.mapping":"best_fit","key.converter":"org.apache.kafka.connect.storage.StringConverter","value.converter":"io.confluent.connect.protobuf.ProtobufConverter","value.converter.schema.registry.url":"http://schema-registry:8081","transforms":"suffix,createKey,extractKey","transforms.suffix.type":"org.apache.kafka.connect.transforms.RegexRouter","transforms.suffix.regex":"(.*)","transforms.suffix.replacement":"$1-profiles-protobuf ","transforms.createKey.type":"org.apache.kafka.connect.transforms.ValueToKey","transforms.createKey.fields":"driverkey","transforms.extractKey.type":"org.apache.kafka.connect.transforms.ExtractField$Key","transforms.extractKey.field":"driverkey","name":"Driver-Connector-Protobuf"},"tasks":[],"type":"source"}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The results will look the same as the AVRO topic. This is because <code>kafka-protobuf-console-consumer</code> is deserializing the bytes.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-protobuf-console-consumer \
+    --bootstrap-server kafka:9092 \
+    --property schema.registry.url=http://schema-registry:8081 \
+    --topic driver-profiles-protobuf \
+    --property print.key=true \
+    --key-deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+    --from-beginning</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Exit the consumer with <code>Ctrl+C</code>.</p>
+</li>
+<li>
+<p>The bytes in the <code>driver-profiles-protobuf</code> topic are Protobuf serialized. We can see the raw bytes using <code>kafkacat</code> and piping the results to <code>hexdump</code>. See more about kafkacat at <a href="https://github.com/edenhill/kafkacat" target="_blank" rel="noopener">https://github.com/edenhill/kafkacat</a>. From the kafkacat documentation:</p>
+<div class="quoteblock">
+<blockquote>
+kafkacat is a generic non-JVM producer and consumer for Apache Kafka &gt;=0.8, think of it as a netcat for Kafka.
+</blockquote>
+</div>
+</li>
+<li>
+<p>Run the command below to see the raw bytes of one message on the <code>driver-profiles-protobuf</code> topic. Let&#8217;s focus on the options we will be using:</p>
+<div class="paragraph">
+<p><code>-b</code> Bootstrap broker(s).</p>
+</div>
+<div class="paragraph">
+<p><code>-C</code> Consume mode.</p>
+</div>
+<div class="paragraph">
+<p><code>-c1</code> Exit after consuming 1 message.</p>
+</div>
+<div class="paragraph">
+<p><code>-t</code> Topic to consume from.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafkacat -b kafka:9092 -C -c1 -t driver-profiles-protobuf | hexdump -C</strong>
+00000000  00 00 00 00 03 00 08 09  12 08 64 72 69 76 65 72  |..........driver|
+00000010  2d 39 1a 06 e5 8a a0 e5  a5 88 22 06 e5 b0 8f e6  |-9........".....|
+00000020  9e 97 2a 02 47 4d 32 08  42 65 72 67 6c 75 6e 64  |..*.GM2.Berglund|
+00000030  3a 0c 08 af dd bf f6 05  10 c0 e2 b9 e3 01 0a     |:..............|
+0000003f</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <a href="https://docs.confluent.io/current/schema-registry/serdes-develop/index.html#wire-format" target="_blank" rel="noopener">wire format</a> documentation explains the format of the bytes.  The 0th byte is <code>00</code> for the format version number.  The next 4 bytes <code>00 00 00 03</code> tell us the schema id.  The remaining bytes are the Protobuf serialized data.</p>
+</div>
+</li>
+<li>
+<p>For comparison you can inspect the raw bytes on the <code>driver-profiles-avro</code> topic.  You can see the the format version number, schema id and <em>AVRO</em> serialized data.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafkacat -b kafka:9092 -C -c1 -t driver-profiles-avro | hexdump -C</strong>
+00000000  00 00 00 00 01 12 10 64  72 69 76 65 72 2d 39 0c  |.......driver-9.|
+00000010  e5 8a a0 e5 a5 88 0c e5  b0 8f e6 9e 97 04 47 4d  |..............GM|
+00000020  10 42 65 72 67 6c 75 6e  64 ae 8b a2 a0 ce 5c 0a  |.Berglund.....\.|
+00000030</pre>
+</div>
+</div>
+</li>
+<li>
+<p>We can request the contents of schema just created via the Schema Registry REST API:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>curl schema-registry:8081/subjects/driver-profiles-protobuf-value/versions/1/schema</strong>
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message driver {
+  int32 id = 1;
+  string driverkey = 2;
+  string firstname = 3;
+  string lastname = 4;
+  string make = 5;
+  string model = 6;
+  google.protobuf.Timestamp timestamp = 7;
+}</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_5">Extra Challenges and Questions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Leave the <code>kafka-avro-console-consumer</code> reading from the <code>driver-profiles-avro</code> topic in a terminal window.  Use <code>psql</code> to update a row in the <code>driver</code> table, and see the update appear on the  <code>driver-profiles-avro</code> topic. Hint: the <code>timestamp</code> column will need to be updated for connect to detect the changes, set timestamp to <code>now()</code> for the current date time.</p>
+</li>
+<li>
+<p>Can you use <code>kafka-topics</code> to determine the log cleaning policy for the <code>driver-profiles-avro</code> topic?  Why would this policy have been chosen?</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_solutions_5">Extra Challenges and Questions Solutions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>This <code>UPDATE</code> statement in <code>psql</code> will update a single row in the drivers table:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="sql"><span class="k">UPDATE</span> <span class="n">driver</span> <span class="k">SET</span> <span class="n">firstname</span><span class="o">=</span><span class="s1">'Bill'</span><span class="p">,</span> <span class="nb">timestamp</span><span class="o">=</span><span class="n">now</span><span class="p">()</span> <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will see the update appear on the <code>driver-profiles-avro</code> topic:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code>driver-6 {"id":6,"driverkey":"driver-6","firstname":"Bill","lastname":"Peterson","make":"GM","model":"Bergland","timestamp":"1584128781527"}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>We can see the topic property with <code>kafka-topics</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-topics --bootstrap-server kafka:9092 --describe --topic driver-profiles-avro</strong>
+Topic: driver-profiles-avro	PartitionCount: 3	ReplicationFactor: 1	Configs: cleanup.policy=compact</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Log compaction means we will always retain at least the last known value for each message. In a follow up exercise we will create a ksqlDB table,  a table is an abstraction of a changelog stream. We are only interested in the most recent record for a key, and can clean out any previous values.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_conclusion_2">Conclusion</h4>
+<div class="paragraph">
+<p>In this exercise you have used a Kafka Connect JDBC source connector to import data residing in PostgreSQL database into the topics <code>driver-profiles-avro</code> and <code>driver-profiles-protobuf</code> in the Kafka cluster. This data can now, e.g., be used to enrich our driver position data in the next exercise.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/stophand.png" alt="stophand" width="200">
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>STOP HERE. THIS IS THE END OF THE EXERCISE.</strong></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_12_challenges_with_offsets">Lab 12 Challenges with Offsets</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_kafka_consumer_offsetsfortimes_java_c_python">a. Kafka Consumer - offsetsForTimes (Java, C#, Python)</h3>
+<div class="paragraph">
+<p>The goal of this lab is to update the consumer application to begin the consumption from a date time setting.</p>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites_8">Prerequisites</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the command in the table below to navigate to the project folder for your language. Click the associated hyperlink to open the API reference:</p>
+<table class="tableblock frame-all grid-all stripes-even stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 50%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Language</th>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">API Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/java-consumer-prev</strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://kafka.apache.org/21/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html#offsetsForTimes-java.util.Map-" target="_blank" rel="noopener">offsetsForTimes</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C#</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/dotnet-consumer-prev</strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://docs.confluent.io/current/clients/confluent-kafka-dotnet/api/Confluent.Kafka.IConsumer-2.html#Confluent_Kafka_IConsumer_2_OffsetsForTimes_System_Collections_Generic_IEnumerable_Confluent_Kafka_TopicPartitionTimestamp__System_TimeSpan_" target="_blank" rel="noopener">OffsetsForTimes</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>cd ~/confluent-dev/challenge/python-consumer-prev</strong></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://docs.confluent.io/current/clients/confluent-kafka-python/index.html#confluent_kafka.Consumer.offsets_for_times" target="_blank" rel="noopener">offsets_for_times</a></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Run the Kafka cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center create-topics webserver</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you are completing the C# or Python exercise, install the dependencies.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For C#:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>dotnet restore</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>For Python:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>pip3 install -r requirements.txt</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Open the project in Visual Studio Code:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>code .</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_writing_the_consumer_with_offsetsfortimes">Writing the Consumer with offsetsForTimes</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First create at least 5 minutes of data in the <code>driver-positions</code> topic. Run the producer solution in a terminal window for at least 5 minutes:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev/solution/java-producer &amp;&amp; \
+  ./gradlew run --console plain</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Open the implementation file for your language of choice:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Java: <code>src/main/java/clients/Consumer.java</code></p>
+</li>
+<li>
+<p>C#: <code>Program.cs</code></p>
+</li>
+<li>
+<p>Python: <code>main.py</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Locate the <code>TODO</code> comments in your implementation file. Use the API reference for your language to attempt each challenge. Solutions are provided at the end of this lab and in the <code>~/confluent-dev/solution</code> folder.</p>
+</li>
+<li>
+<p>At any time run the application by selecting the menu <strong>Run</strong> &#8594; <strong>Start Debugging</strong> in VS Code. As you complete the challenges try to produce a similar output from your application:</p>
+<div class="listingblock">
+<div class="content">
+<pre>Starting Java Consumer.
+Seeking partition 1 to offset 111
+driver-1,47.61283381989413,-122.34560354160932
+driver-1,47.612775111954,-122.34550277424941
+driver-1,47.61271588266544,-122.34540267699794
+driver-1,47.61265662130749,-122.34530262107957
+...</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Open the web application at <a href="http://localhost:3001" target="_blank" rel="noopener">http://localhost:3001</a>.</p>
+</li>
+<li>
+<p>The web application can plot the output from your consumer on the map. Copy into your clipboard the comma separated output from your application, for example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>driver-1,47.61283381989413,-122.34560354160932
+driver-1,47.612775111954,-122.34550277424941
+driver-1,47.61271588266544,-122.34540267699794
+driver-1,47.61265662130749,-122.34530262107957</pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the web application select the <strong>Plot Data</strong> tab, paste your comma separated output, and click <strong>view</strong>. The map will plot your data points onto the map, giving you a representation of your driver data beginning at a time 5 minutes ago.</p>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/design/plot-data.png" alt="plot data" width="50%">
+</div>
+</div>
+</li>
+<li>
+<p>When you have completed the challenges, close VS Code.</p>
+</li>
+<li>
+<p>Return to the terminal window running the producer solution.  Press <code>Ctrl+C</code> to exit the producer.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_6">Extra Challenges and Questions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In this exercise we are seeking to an offset based on a timestamp. Can you find the method you would use to seek to the beginning of a partition?</p>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect3">
+<h4 id="_java_solution_3">Java Solution</h4>
+<div class="listingblock">
+<div class="title">solution/java-consumer-prev/src/main/java/clients/Consumer.java</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="c1">// TODO: Request the offsets for the start timestamp</span>
+<span class="kd">final</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">TopicPartition</span><span class="o">,</span> <span class="nc">OffsetAndTimestamp</span><span class="o">&gt;</span> <span class="n">startOffsets</span> <span class="o">=</span>
+    <span class="n">consumer</span><span class="o">.</span><span class="na">offsetsForTimes</span><span class="o">(</span><span class="n">timestampsToSearch</span><span class="o">);</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="c1">// TODO: Print the new offset for each partition</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"Seeking partition %d to offset %d\n"</span><span class="o">,</span> <span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">().</span><span class="na">partition</span><span class="o">(),</span>
+    <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">().</span><span class="na">offset</span><span class="o">());</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_c_solution_3">C# Solution</h4>
+<div class="listingblock">
+<div class="title">solution/dotnet-consumer-prev/Program.cs</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c#"><span class="c1">// TODO: Request the offsets for the start timestamp</span>
+<span class="kt">var</span> <span class="n">offsets</span> <span class="p">=</span> <span class="n">c</span><span class="p">.</span><span class="nf">OffsetsForTimes</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">TimeSpan</span><span class="p">.</span><span class="nf">FromMinutes</span><span class="p">(</span><span class="m">1</span><span class="p">));</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c#"><span class="c1">// TODO: Print the new offset for each partition</span>
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="s">$"Moving partion </span><span class="p">{</span><span class="n">offset</span><span class="p">.</span><span class="n">Partition</span><span class="p">.</span><span class="n">Value</span><span class="p">}</span><span class="s"> to </span><span class="p">{</span><span class="n">offset</span><span class="p">.</span><span class="n">Offset</span><span class="p">.</span><span class="n">Value</span><span class="p">}</span><span class="s">"</span><span class="p">);</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_python_solution_3">Python Solution</h4>
+<div class="listingblock">
+<div class="title">solution/python-consumer-prev/main.py</div>
+<div class="content">
+<pre class="rouge highlight"><code data-lang="py"><span class="c1">#TODO: Request the offsets for the start timestamp
+</span><span class="n">new_offsets</span> <span class="o">=</span> <span class="n">konsumer</span><span class="p">.</span><span class="n">offsets_for_times</span><span class="p">(</span><span class="n">partitions</span><span class="p">)</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="py"><span class="c1">#TODO: Print the new offset for each partition
+</span><span class="k">print</span><span class="p">(</span><span class="s">"Setting partition {} to offset {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">part</span><span class="p">.</span><span class="n">partition</span><span class="p">,</span> <span class="n">part</span><span class="p">.</span><span class="n">offset</span><span class="p">))</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_extra_challenges_and_questions_solutions_6">Extra Challenges and Questions Solutions</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Seeking to the beginning of a partition examples are supplied below.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Java</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="java"><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPartitionsAssigned</span><span class="o">(</span><span class="nc">Collection</span><span class="o">&lt;</span><span class="nc">TopicPartition</span><span class="o">&gt;</span> <span class="n">partitions</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">consumer</span><span class="o">.</span><span class="na">seekToBeginning</span><span class="o">(</span><span class="n">partitions</span><span class="o">);</span>
+<span class="o">}</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>C#</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="c#"><span class="p">.</span><span class="nf">SetPartitionsAssignedHandler</span><span class="p">((</span><span class="n">c</span><span class="p">,</span> <span class="n">partitions</span><span class="p">)</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">offsets</span> <span class="p">=</span> <span class="n">partitions</span><span class="p">.</span><span class="nf">Select</span><span class="p">(</span><span class="n">tp</span> <span class="p">=&gt;</span> <span class="k">new</span> <span class="nf">TopicPartitionOffset</span><span class="p">(</span><span class="n">tp</span><span class="p">,</span> <span class="n">Offset</span><span class="p">.</span><span class="n">Beginning</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">offsets</span><span class="p">;</span>
+<span class="p">})</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Python</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="python"><span class="k">def</span> <span class="nf">my_on_assign</span><span class="p">(</span><span class="n">konsumer</span><span class="p">,</span> <span class="n">partitions</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">partitions</span><span class="p">:</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">offset</span> <span class="o">=</span> <span class="n">OFFSET_BEGINNING</span>
+    <span class="n">konsumer</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">partitions</span><span class="p">)</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/stophand.png" alt="stophand" width="200">
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>STOP HERE. THIS IS THE END OF THE EXERCISE.</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_13_partitioning_considerations">Lab 13 Partitioning Considerations</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_increasing_the_topic_partitions">a. Increasing the Topic Partitions</h3>
+<div class="paragraph">
+<p>The goal of this lab is to observe the behavior of a topic before and after the number of topic partitions are increased. In a production environment you might be observing a high lag for a consumer group. Recall from the Kafka documentation:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+Kafka is able to provide both ordering guarantees and load balancing over a pool of consumer processes. This is achieved by assigning the partitions in the topic to the consumers in the consumer group so that each partition is consumed by exactly one consumer in the group. By doing this we ensure that the consumer is the only reader of that partition and consumes the data in order. Since there are many partitions this still balances the load over many consumer instances. <strong>Note however that there cannot be more consumer instances in a consumer group than partitions.</strong>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>If you wanted to grow a consumer group beyond the number of topic partitions you would need to increase the number of topic partitions.  In this exercise we can observe the impact increasing the number of partitions has on key-partition mapping.</p>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites_9">Prerequisites</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the project folder:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>For this exercise we want to start from a clean state. First end all running containers, then run the Kafka cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose down -v</strong>
+...
+$ <strong>docker-compose up -d zookeeper kafka control-center create-topics \
+     schema-registry producer1 producer2 producer3 producer4 \
+     webserver-avro</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_observe_key_partitioning">Observe Key Partitioning</h4>
+<div class="paragraph">
+<p>It will take a few moments for the cluster to start producing data. While it is starting let&#8217;s look at a command to view the key partition mapping for <code>driver-positions-avro</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run <code>kafkacat</code> in a terminal window to see the many command line options available. Let&#8217;s focus on the options we will be using:</p>
+<div class="paragraph">
+<p><code>-C</code> Consume mode.</p>
+</div>
+<div class="paragraph">
+<p><code>-e</code> Exit successfully when last message received.</p>
+</div>
+<div class="paragraph">
+<p><code>-q</code> Be quiet - we don&#8217;t want any extra diagnostic information.</p>
+</div>
+<div class="paragraph">
+<p><code>-b</code> Bootstrap broker(s).</p>
+</div>
+<div class="paragraph">
+<p><code>-t</code> Topic to consume from.</p>
+</div>
+<div class="paragraph">
+<p><code>-f</code> Output formatting string - we are only interested in the message key <code>%k</code> and partition <code>%p</code>.</p>
+</div>
+</li>
+<li>
+<p>kafkacat will output a line for every record. To get the partition for each key the output is piped to <code>sort</code> and <code>uniq</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafkacat -Ceq \
+    -b kafka \
+    -X enable.partition.eof=true \
+    -t driver-positions-avro \
+    -f 'Key:%k Partition:%p\n' \
+    | sort | uniq</strong>
+Key:driver-1 Partition:1
+Key:driver-2 Partition:2
+Key:driver-3 Partition:1
+Key:driver-4 Partition:1</pre>
+</div>
+</div>
+</li>
+<li>
+<p>You can confirm the key to partition mapping by observing the output on the right hand side of the web application at <a href="http://localhost:3002" target="_blank" rel="noopener">http://localhost:3002</a>.</p>
+</li>
+<li>
+<p>Increase the number of partitions with <code>kafka-topics</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka-topics --bootstrap-server kafka:9092 \
+    --alter \
+    --topic driver-positions-avro \
+    --partitions 10</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Java producers cache metadata and will start writing to the new partitions when the cache is refreshed. This is determined by the <code>metadata.max.age.ms</code> setting which defaults to 300000 milliseconds (5 minutes). For this reason it will take a maximum of 5 minutes before we see data being written to the new partitions.</p>
+</div>
+<div class="paragraph">
+<p>In the mean time we can take a quick deep dive on the default partitioner.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_defaultpartitioner_deep_dive">DefaultPartitioner Deep Dive</h4>
+<div class="paragraph">
+<p>You can recreate some of the Kafka <a href="https://github.com/apache/kafka/blob/2.4.0/clients/src/main/java/org/apache/kafka/clients/producer/internals/DefaultPartitioner.java#L52" target="_blank" rel="noopener">DefaultPartitioner</a> logic in the Java 11 REPL (Read–Eval–Print Loop).  Using this you can see which partitions will be used for the message keys before and after the change in partition numbers.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Upgrade Java SDK. You&#8217;ll be prompted to enter the password: <strong>training</strong>.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>sudo apt install openjdk-11-jdk-headless</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Start the Java 11 REPL with the following command. The command includes some shared JAR files in the class path:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafka_bin=$(dirname $(which kafka-console-consumer))</strong>
+  <strong>share_jars="$kafka_bin/../share/java/kafka/*"</strong>
+  <strong>jshell --class-path "$share_jars"</strong>
+|  Welcome to JShell -- Version 11.0.14.1
+|  For an introduction type: /help intro
+
+jshell&gt;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Import packages for Kafka utilities and character set information.</p>
+<div class="listingblock">
+<div class="content">
+<pre>jshell&gt; <strong>import org.apache.kafka.common.utils.Utils; import java.nio.charset.StandardCharsets; import static org.apache.kafka.common.utils.Utils.toPositive;</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Define a function that take a <code>key</code> and <code>numPartitions</code> as parameters. The variable <code>keyBytes</code> is set with the UTF-8 bytes of the key. With this we can replicate the logic the Kafka client library uses as the default partitioner: hash the key with murmur2 algorithm and modulo it by the number of partitions</p>
+<div class="listingblock">
+<div class="content">
+<pre>jshell&gt; <strong>int partition(String key, int numPartitions) {
+          byte[] keyBytes = key.getBytes(StandardCharsets.UTF_8);
+          return toPositive(Utils.murmur2(keyBytes)) % numPartitions;
+        }</strong>
+|  created method partition(String,int)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Which partition would the default partitioner use for a record with a key of <code>driver-1</code> on a topic using 3 partitions:</p>
+<div class="listingblock">
+<div class="content">
+<pre>jshell&gt; <strong>System.out.println(partition("driver-1", 3))</strong>
+1</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Which partition would the default partitioner use for a record with a key of <code>driver-1</code> on a topic using 10 partitions:</p>
+<div class="listingblock">
+<div class="content">
+<pre>jshell&gt; <strong>System.out.println(partition("driver-1", 10))</strong>
+5</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Exit the Java REPL by pressing Ctrl+D.</p>
+</li>
+<li>
+<p>Confirm the partitions driver records are being delivered to in the web application <a href="http://localhost:3002" target="_blank" rel="noopener">http://localhost:3002</a>.</p>
+</li>
+<li>
+<p>Consume records from <code>driver-positions-avro</code> and observe the keys in each partition.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>kafkacat -Ceq \
+    -b kafka \
+    -X enable.partition.eof=true \
+    -t driver-positions-avro \
+    -f 'Key:%k Partition:%p\n' \
+    | sort | uniq</strong>
+Key:driver-1 Partition:1
+Key:driver-1 Partition:5
+Key:driver-2 Partition:2
+Key:driver-2 Partition:9
+Key:driver-3 Partition:1
+Key:driver-3 Partition:8
+Key:driver-4 Partition:1
+Key:driver-4 Partition:2</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that records with the key <code>driver-1</code> are now being delivered to partition 5. You will also notice <code>driver-1</code> has records in both partition 1 (from before the resize) and partition 5 (from after the resize).</p>
+</div>
+</li>
+<li>
+<p>This is the last exercise!</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Clean up your environment with:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>cd ~/confluent-dev</strong>
+$ <strong>docker-compose down -v</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Verify all services have been shut down by checking <code>docker-compose ps</code></p>
+</li>
+<li>
+<p>If there are any issues with shutting down, run</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-nuke.sh</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="./images/stophand.png" alt="stophand" width="200">
+</div>
+</div>
+<div class="paragraph text-center">
+<p><strong>STOP HERE. THIS IS THE END OF THE EXERCISE.</strong></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_all_labs_with_docker">Appendix A: Running All Labs with Docker</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="docker-local">Running Labs in Docker for Desktop</h3>
+<div class="paragraph">
+<p>If you have installed Docker for Desktop on your Mac or Windows 10 Pro machine you are able to complete the course by building and running your applications from the command line.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Increase the memory available to Docker Desktop to a minimum of 6 GiB. See the advanced settings for <a href="https://docs.docker.com/docker-for-mac/#advanced" target="_blank" rel="noopener">Docker Desktop for Mac</a>, and <a href="https://docs.docker.com/docker-for-windows/#advanced" target="_blank" rel="noopener">Docker Desktop for Windows</a>.</p>
+</li>
+<li>
+<p>Follow the instructions at &#8594; <a href="#preparing-lab">Preparing the Labs</a> to <code>git clone</code> the source code.  The exercise source code will now be on your host machine where you can use any editor to complete the exercises or experiment.</p>
+</li>
+<li>
+<p>From the location where you cloned the source code, launch a tools container:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d tools</strong></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All the command line instructions will work from the tools container.  This container has been preconfigured with all of the tools you use in the exercises, e.g. <code>kafka-topics</code>, <code>gradle</code>, <code>dotnet</code> and <code>python</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose exec tools bash</strong>
+root@tools:/#</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The source code cloned onto your host machine is present in the tools container as a <a href="https://docs.docker.com/storage/bind-mounts/" target="_blank" rel="noopener">bind mount</a>. You can see the source code in <code>~/confluent-dev</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>root@tools:/# <strong>ls ~/confluent-dev/</strong>
+README.md  challenge  docker-compose.yml  postgres  solution  update-hosts.sh  webserver  webserver-avro</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Anywhere you are instructed to open additional terminal windows you can <code>exec</code> additional bash shells on the tools container with <code>docker-compose exec tools bash</code> on your host machine.</p>
+</div>
+</li>
+<li>
+<p>The <code>docker</code> or <code>docker-compose</code> instructions are run on your host machine.</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_running_the_exercise_applications">Running the Exercise Applications</h4>
+<div class="paragraph">
+<p>From the <code>tools</code> container you can use command line alternatives to the VS Code steps used in the instructions.  Complete the coding exercises with an editor of your choice on your host machine. When instructed to run code using the VS Code debugger, instead run your code from within the tools container using these terminal commands:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For Java applications: <code>./gradlew run</code></p>
+</li>
+<li>
+<p>For C# applications: <code>dotnet run</code></p>
+</li>
+<li>
+<p>For Python applications: <code>python3 main.py</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Where you are instructed to stop debugging in VS code use <code>Ctrl+C</code> to end the running exercise.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_getting_started">Getting Started</h4>
+<div class="paragraph">
+<p>Let&#8217;s apply this to get you started with the <strong>Introduction</strong> exercise.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a two terminal windows. The first window will be used for <code>docker</code> and <code>docker-compose</code> commands on your host machine. The second window will be used for the commands run in the tools container.</p>
+</li>
+<li>
+<p>In the first terminal window, clone the source code repository to the folder <code>confluent-dev</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>git clone --depth 1 --branch 7.0.0-v1.0.1 \
+    https://github.com/confluentinc/training-developer-src.git \
+    confluent-dev</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Start the Kafka cluster:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>In the second terminal window launch the tools container, and open a bash shell.</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d tools</strong>
+$ <strong>docker-compose exec tools bash</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The exercise command line instructions can now be run in the tools container. The first command we have in the <strong>Introduction</strong> exercise uses <code>zookeeper-shell</code>:</p>
+<div class="listingblock">
+<div class="content">
+<pre>root@tools:/# <strong>zookeeper-shell zookeeper:2181 ls /brokers/ids</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If we skip ahead to the <strong>Kafka Producer</strong> coding exercise, this begins with a command to change to the challenge directory. You can do this in the second terminal window where you are accessing the tools container. Using the Java challenge as an example:</p>
+<div class="listingblock">
+<div class="content">
+<pre>root@tools:/# <strong>cd ~/confluent-dev/challenge/java-producer</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>The next command launches additional containers. Run this command in the first terminal window:</p>
+<div class="listingblock">
+<div class="content">
+<pre>$ <strong>docker-compose up -d zookeeper kafka control-center create-topics webserver</strong></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Complete the source code challenges in <code>confluent-dev/challenge/java-producer/src/main/java/clients/Producer.java</code> on your host machine.  Now you can build and run in the second terminal window:</p>
+<div class="listingblock">
+<div class="content">
+<pre>root@tools:/# <strong>cd ~/confluent-dev/challenge/java-producer</strong>
+root@tools:/# <strong>./gradlew run</strong></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 7.0.0-v1.0.1<br>
+Last updated 2022-05-16 13:54:14 UTC
+</div>
+</div>
+</body>
+</html>
